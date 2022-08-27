@@ -24,9 +24,6 @@ jobs:
     - uses: actions/setup-node@main
       with:
         node-version: '12.x'
-    - run: | 
-        touch .env,
-        echo ${{ secrets.FIREBASE_TOKEN }} | base64 --decode > .env
     
     - run: npm install
     - run: npm run build:prod
