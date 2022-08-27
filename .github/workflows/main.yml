@@ -25,8 +25,8 @@ jobs:
       with:
         node-version: '12.x'
     - run: | 
-        touch ./src/environment/environment.ts,
-        echo ${{ secrets.FIREBASE_TOKEN }} | base64 --decode > ./src/environment/environment.ts
+        touch .env,
+        echo ${{ secrets.FIREBASE_TOKEN }} | base64 --decode > .env
     
     - run: npm install
     - run: npm run build:prod
