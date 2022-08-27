@@ -25,8 +25,8 @@ jobs:
       with:
         node-version: '12.x'
     - run: | 
-        touch ./environment/environment.ts,
-        echo export const environment = {username : ${{ secrets.USERNAME }}, password : ${{ secrets.PASSWORD }}} | base64 --decode > ./environment/environment.ts
+        touch environment/environment.ts,
+        echo export const environment = {username : ${{ secrets.USERNAME }}, password : ${{ secrets.PASSWORD }}} | base64 --decode > environment/environment.ts
     
     - run: npm install
     - run: npm run build:prod
