@@ -1,0 +1,42 @@
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    form {
+        margin: 0 auto;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 1em 4em;
+        box-sizing: border-box;
+
+        input {
+            outline: none;
+            background-color: black;
+            color: white;
+            border: none;
+            padding: .75em 1em;
+            font-size: 16px;
+            box-sizing: border-box;
+            max-width: 50em;
+            margin: 0 auto;
+            border-radius: .5em;
+        }
+
+        button {
+            width: 100%;
+            max-width: 50em;
+            margin: 0 auto;
+            padding: .6em 2.8em;
+            outline: none;
+            border: none;
+            border-radius: .5em;
+            background-color: #035fff;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+}
