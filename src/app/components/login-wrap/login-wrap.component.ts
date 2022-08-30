@@ -13,28 +13,27 @@ export class LoginWrapComponent implements OnInit {
   }
 
 
-  login() {
+  login($event : Event) {
+    $event.preventDefault();
     const usrElement = document.querySelector('#username');
     const pwElement = document.querySelector('#password');
 
     if (usrElement instanceof HTMLInputElement && pwElement instanceof HTMLInputElement) {
 
-      if (usrElement.value !== "" && usrElement.value !== "") {
-        fetch('https://api.kickbase.com/user/login', {
-          method: "POST",
-          headers: {
-            'accept': 'application/json',
-            'Content-type': 'application/json'
-          },
-          body: JSON.stringify({
-            "username": usrElement.value,
-            "password": pwElement.value,
-            "ext": false
-          })
+      if (usrElement.value !== "" && pwElement.value !== "") {
+        fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/loginUser?username=${usrElement.value}&password=${pwElement.value}`, {
+          method : "GET",
+          redirect : "follow"
         })
-          .then((response) => {
-            console.log(response);
+          .then(async (response) => {
+            if (response.status === 200) {
+              let rawText = await response.text()
+              let json = JSON.parse(rawText);
+              console.log(json);
+            }
           })
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
       }
     }
   }
