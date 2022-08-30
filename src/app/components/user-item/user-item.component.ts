@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { userInfo } from 'src/app/models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { playerInterface, userInfo } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-item',
@@ -8,14 +9,63 @@ import { userInfo } from 'src/app/models/user.model';
 })
 export class UserItemComponent implements OnInit {
 
-  @Input() user! : userInfo;
+  public userId!: string;
+
+  public user!: userInfo;
+
+  players: playerInterface[] = [];
 
   isLoadingFinished = false;
 
+  //PLAYER URL : https://api.kickbase.com/leagues/2644579/players/1685/stats
 
-  constructor() { }
+  //USER URL: 
+  constructor(private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.userId = this.route.snapshot.paramMap.get('id') ?? "";
+    this.getUserInfo();
+  }
+
+  getUserInfo() {
+    if (this.userId === "") {
+      this.router.navigate(['/dashboard']);
+    }
+
+    let leagueId = localStorage.getItem('leagueid');
+    let token = localStorage.getItem('ctoken');
+    if (leagueId === undefined || token === undefined) {
+      this.router.navigate(['/login']);
+    }
+
+    fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueId}`, {
+      method: "GET",
+      redirect: "follow"
+    })
+      .then(async (response) => {
+        if (response.status !== 200) {
+          this.router.navigate(['/dashboard']);
+        }
+        let text = await response.text()
+        const json = JSON.parse(text);
+        for(let user of json.u) {
+          if(user.id !== this.userId) {
+            continue;
+          }
+          for(let playerElem of user.pl) {
+            this.players.push({
+              name: playerElem.n + " " + playerElem.fn,
+              number: playerElem.nr,
+              points: playerElem.t
+            })
+            console.log(this.players);
+          }
+        }
+      })
+      .catch((error) => {
+        this.router.navigate(['/dashboard']);
+      })
   }
 
 }

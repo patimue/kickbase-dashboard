@@ -14,7 +14,11 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: "user",
+    path: "user/:id",
+    component: UserItemComponent
+  },
+  {
+    path: "player/:id",
     component: UserItemComponent
   },
   {
