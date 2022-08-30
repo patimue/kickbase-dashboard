@@ -3,5 +3,15 @@
         <div class="header">
             {{ user.name }}
         </div>
+        <table>
+            <tr>
+                <th>Player</th>
+                <th>Matchday Points</th>
+            </tr>
+            <tr *ngFor="let player of players">
+                <td>{{ player.name }}</td>
+                <td>{{ player.points }}</td>
+            </tr>
+        </table>
     </div>
 </div>

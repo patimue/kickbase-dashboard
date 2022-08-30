@@ -6,7 +6,7 @@
             <th>Matchday Points</th>
             <th>Overall Points</th>
         </tr>
-        <tr *ngFor="let user of players" (click)="openTile(user)">
+        <tr *ngFor="let user of players" (click)="openTile(user)" class="userRow">
             <td>{{ user.name }}</td>
             <td>{{ user.points }}</td>
             <td>{{ user.stats }}</td>

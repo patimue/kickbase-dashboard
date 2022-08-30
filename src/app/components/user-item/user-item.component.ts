@@ -25,6 +25,7 @@ export class UserItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
+    this.isLoadingFinished = true; 
     this.getUserInfo();
   }
 
@@ -49,18 +50,28 @@ export class UserItemComponent implements OnInit {
         }
         let text = await response.text()
         const json = JSON.parse(text);
-        for(let user of json.u) {
-          if(user.id !== this.userId) {
+        for (let user of json.u) {
+          if (user.id !== this.userId) {
             continue;
           }
-          for(let playerElem of user.pl) {
+          this.user = {
+            id: user.n,
+            name: user.n,
+            points: user.t,
+            positive: user.b,
+            stats: user.st,
+            picture: user.i,
+            players: this.players
+          }
+          for (let playerElem of user.pl) {
             this.players.push({
-              name: playerElem.n + " " + playerElem.fn,
+              name: playerElem.fn + " " + playerElem.n,
               number: playerElem.nr,
               points: playerElem.t
             })
             console.log(this.players);
           }
+          this.isLoadingFinished = true;
         }
       })
       .catch((error) => {

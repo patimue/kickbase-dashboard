@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
         const json = JSON.parse(text);
         for(let user of json.u) {
           this.players.push({
+            id: user.id,
             name: user.n,
             positive: user.b,
             points: user.t,
@@ -56,7 +57,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openTile(user : userInfo) {
-    this.showTile = true; 
+    this.router.navigate([`/user/${user.id}`])
   }
 
 }

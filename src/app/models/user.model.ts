@@ -4,6 +4,7 @@ export interface userInterface {
 
 
 export interface userInfo {
+    id: string;
     name: string;
     positive: number;
     points: number;
