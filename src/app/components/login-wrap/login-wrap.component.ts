@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { userInterface } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-login-wrap',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginWrapComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -29,12 +31,21 @@ export class LoginWrapComponent implements OnInit {
             if (response.status === 200) {
               let rawText = await response.text()
               let json = JSON.parse(rawText);
-              console.log(json);
+              this.handleResponse(json);
             }
           })
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
       }
+    }
+  }
+
+  private handleResponse(json : any)  {
+    if(json.token !== undefined) {
+      localStorage.setItem('ctoken', json.token);
+      this.router.navigate(['/dashboard'])
+    } else {
+      
     }
   }
 }

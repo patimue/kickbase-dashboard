@@ -4,11 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { LoginWrapComponent } from './components/login-wrap/login-wrap.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginWrapComponent
+    LoginWrapComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
