@@ -30,7 +30,14 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.apiService.getMatchDay(leagueid!, token!);
-    this.players = this.apiService.users;
+
+
+    for(let i = 0; i <= 5; i++) {
+      setTimeout(() => {
+        console.log(this.apiService.users)
+        this.players = this.apiService.users;
+      }, 1000)
+    }
   }
 
   openTile(user : userInfo) {
