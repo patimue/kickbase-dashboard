@@ -10,6 +10,8 @@ export class UserItemComponent implements OnInit {
 
   @Input() user! : userInfo;
 
+  isLoadingFinished = false;
+
 
   constructor() { }
 

@@ -1,7 +1,7 @@
 <div class="wrapper">
-    <div class="tile">
+    <div class="tile" *ngIf="isLoadingFinished">
         <div class="header">
-            {{ user.name }}s
+            {{ user.name }}
         </div>
     </div>
 </div>

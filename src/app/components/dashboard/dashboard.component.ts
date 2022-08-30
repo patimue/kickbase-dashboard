@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { userInfo, playerInterface } from 'src/app/models/user.model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
   showTile = false; 
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private apiService : ApiService) {
     this.checkStorage();
   }
 
@@ -26,33 +27,9 @@ export class DashboardComponent implements OnInit {
 
     if (token === undefined || leagueid === undefined) {
       this.router.navigate(['/login']);
+      return;
     }
-    fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueid}`, {
-      method: "GET",
-      redirect: "follow"
-    })
-    .then(async (res) => {
-      if(res.status === 200) {
-        let text = await res.text();
-        console.log(text);
-        const json = JSON.parse(text);
-        for(let user of json.u) {
-          this.players.push({
-            name: user.n,
-            positive: user.b,
-            points: user.t,
-            stats: user.st,
-            picture: user.i,
-            players: []
-          })
-        }
-      } else {
-        console.log('error');
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    this.players = this.apiService.getMatchDay(leagueid!, token!);
   }
 
   openTile(user : userInfo) {
