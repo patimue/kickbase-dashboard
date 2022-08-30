@@ -26,7 +26,7 @@ export class UserItemComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
     this.isLoadingFinished = true; 
-    // this.getUserInfo();
+    this.getUserInfo();
   }
 
   getUserInfo() {
@@ -65,7 +65,7 @@ export class UserItemComponent implements OnInit {
           }
           for (let playerElem of user.pl) {
             this.players.push({
-              name: playerElem.fn + " " + playerElem.n,
+              name: playerElem.fn ?? "" + " " + playerElem.n,
               number: playerElem.nr,
               points: playerElem.t,
               image: playerElem.i
