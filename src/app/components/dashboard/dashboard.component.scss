@@ -1,0 +1,33 @@
+.wrapper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3vh;
+
+    header {
+        text-align: center;
+        font-size: 6vh;
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        font-weight: bold;
+    }
+
+    table {
+        text-align: start;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        border-spacing: 3em;
+
+        tr {
+            th {
+
+                text-align: start;
+            }
+
+
+        }        
+    }
+}

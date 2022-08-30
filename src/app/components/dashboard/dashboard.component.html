@@ -1,1 +1,23 @@
-<p>dashboard works!</p>
+<div class="wrapper">
+    <header>Matchday Standings</header>
+    <table>
+        <tr>
+            <th>Player</th>
+            <th>Matchday Points</th>
+            <th>Overall Points</th>
+        </tr>
+        <tr *ngFor="let user of players" >
+            <td>{{ user.name }}</td>
+            <td>{{ user.points }}</td>
+            <td>{{ user.stats }}</td>
+        </tr>
+        <!-- <tr>
+            <td style="background-color:red;" colspan="4">test</td>
+        </tr> -->
+        <tr>
+            <td>patimue</td>
+            <td>awdawd</td>
+            <td>awd</td>
+        </tr>
+    </table>
+</div>

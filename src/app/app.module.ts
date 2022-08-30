@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 import { LoginWrapComponent } from './components/login-wrap/login-wrap.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserItemComponent } from './components/user-item/user-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginWrapComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserItemComponent
   ],
   imports: [
     BrowserModule,
