@@ -43,6 +43,7 @@ export class LoginWrapComponent implements OnInit {
   private handleResponse(json : any)  {
     if(json.token !== undefined) {
       localStorage.setItem('ctoken', json.token);
+      localStorage.setItem('leagueid', json.leagues[0].id);
       this.router.navigate(['/dashboard'])
     } else {
       

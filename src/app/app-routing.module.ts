@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginWrapComponent } from './components/login-wrap/login-wrap.component';
 
 const routes: Routes = [
@@ -9,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: "dashboard",
-    component: LoginWrapComponent
+    component: DashboardComponent
   },
   {
     path: "**",
