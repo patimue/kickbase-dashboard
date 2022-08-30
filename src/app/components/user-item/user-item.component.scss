@@ -1,0 +1,17 @@
+.wrapper {
+    position: fixed;
+    margin: 0 auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+
+    .tile {
+        position: relative;
+        margin: 0 auto;
+        height: 100%;
+        width: 100%;
+    }
+}

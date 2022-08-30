@@ -11,6 +11,8 @@ export class DashboardComponent implements OnInit {
 
   players : userInfo[] = [];
 
+  showTile = false; 
+
   constructor(private router: Router) {
     this.checkStorage();
   }
@@ -51,6 +53,10 @@ export class DashboardComponent implements OnInit {
     .catch((error) => {
       console.log(error);
     })
+  }
+
+  openTile(user : userInfo) {
+    this.showTile = true;
   }
 
 }
