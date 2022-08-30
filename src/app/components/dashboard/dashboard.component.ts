@@ -29,7 +29,8 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['/login']);
       return;
     }
-    this.players = this.apiService.getMatchDay(leagueid!, token!);
+    this.apiService.getMatchDay(leagueid!, token!);
+    this.players = this.apiService.users;
   }
 
   openTile(user : userInfo) {

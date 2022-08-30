@@ -6,9 +6,11 @@ import { userInfo } from '../models/user.model';
 })
 export class ApiService {
 
+  users : userInfo[] = [];
+
   constructor() { }
 
-  getMatchDay(leagueId: string, token: string): userInfo[] {
+  getMatchDay(leagueId: string, token: string) {
     fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueId}`, {
       method: "GET",
       redirect: "follow"
@@ -30,18 +32,14 @@ export class ApiService {
                   players: []
                 })
               }
-              return array;
             })
-            return [];
         } else {
           console.log('error');
-          return [];
         }
       })
       .catch((error) => {
         return undefined
         console.log(error);
       })
-      return [];
   }
 }
