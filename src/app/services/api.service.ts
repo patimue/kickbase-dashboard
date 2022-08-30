@@ -9,7 +9,7 @@ export class ApiService {
   constructor() { }
 
   getMatchDay(leagueId: string, token: string): userInfo[] {
-    fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueid}`, {
+    fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueId}`, {
       method: "GET",
       redirect: "follow"
     })
@@ -32,6 +32,7 @@ export class ApiService {
               }
               return array;
             })
+            return [];
         } else {
           console.log('error');
           return [];
