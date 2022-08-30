@@ -18,4 +18,5 @@ export interface playerInterface {
     name : string;
     number: number;
     points: number;
+    image: string;
 }

@@ -18,17 +18,63 @@
         background-color: var(--tile-color);
         padding: 1em 2em;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
         border-radius: 1em;
 
         .header {
             width: 100%;
             display: flex;
-            justify-content: start;
+            justify-content: center;
             font-size: 2em;
         }
 
-        table {
-            width: 100%;
+        .playerListWrap {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+
+            .playerTile{
+                background-color: gray;
+                border-radius: 1em;
+                padding: .5em;
+                box-sizing: border-box;
+                color: white;
+                font-size: .8em;
+                display: flex;
+
+                .left,
+                .right {
+                    flex: 1;
+                    display: flex;
+                }
+
+                .left {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+
+                    .playerInfo {
+                        
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+
+                        justify-content: center;
+                        label {
+                            white-space: normal;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+
+                .right {
+                    box-sizing: border-box;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
         }
     }
 }

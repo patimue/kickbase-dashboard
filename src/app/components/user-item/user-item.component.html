@@ -3,15 +3,19 @@
         <div class="header">
             {{ user.name }}
         </div>
-        <table>
-            <tr>
-                <th>Player</th>
-                <th>Matchday Points</th>
-            </tr>
-            <tr *ngFor="let player of players">
-                <td>{{ player.name }}</td>
-                <td>{{ player.points }}</td>
-            </tr>
-        </table>
+        <div class="playerListWrap">
+            <div class="playerTile" *ngFor="let player of players">
+                <div class="left">
+                    <img [src]="player.image" alt="logo">
+                    <div class="playerInfo">
+                        <label>{{ player.name }}</label>
+                    </div>
+                </div>
+                <div class="right">
+                    <label for="">Points:</label>
+                    <label for="">{{ player.points }}</label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
