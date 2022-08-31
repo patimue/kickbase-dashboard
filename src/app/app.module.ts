@@ -6,13 +6,15 @@ import { environment } from 'src/environments/environment';
 import { LoginWrapComponent } from './components/login-wrap/login-wrap.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserItemComponent } from './components/user-item/user-item.component';
+import { SelectViewComponent } from './components/select-view/select-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginWrapComponent,
     DashboardComponent,
-    UserItemComponent
+    UserItemComponent,
+    SelectViewComponent
   ],
   imports: [
     BrowserModule,
