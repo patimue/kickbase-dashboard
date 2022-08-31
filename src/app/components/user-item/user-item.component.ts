@@ -64,7 +64,7 @@ export class UserItemComponent implements OnInit {
             players: this.players
           }
           for (let playerElem of user.pl) {
-            fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${token}&leagueId=${leagueId}&${playerElem.id}`, {
+            fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${token}&leagueId=${leagueId}&playerId=${playerElem.id}`, {
               method: "GET",
               redirect: "follow"
             })
