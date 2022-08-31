@@ -78,7 +78,7 @@ export class UserItemComponent implements OnInit {
                   number: json.number,
                   points: playerElem.t,
                   image: json.profileUrl,
-                  boughtFor: json.leaguePlayers.buyPrice ?? 0,
+                  boughtFor: json.leaguePlayer.buyPrice ?? 0,
                   marketV: json.marketValue,
                   averagePoints: json.averagePoints
                 });
