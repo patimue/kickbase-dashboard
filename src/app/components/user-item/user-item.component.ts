@@ -86,7 +86,7 @@ export class UserItemComponent implements OnInit {
                 let text = await res.text();
                 let json = JSON.parse(text);
                 this.addPlayer({
-                  name: json.firstName ?? "" + " " + json.lastName,
+                  name: json.firstName  + " " + json.lastName,
                   number: json.number,
                   points: playerElem.t,
                   image: json.profileBig,
