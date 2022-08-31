@@ -69,6 +69,8 @@ export class UserItemComponent implements OnInit {
               redirect: "follow"
             })
               .then(async (res) => {
+                if (res.status !== 200)
+                  return;
                 let text = await res.text();
                 let json = JSON.parse(text);
                 this.addPlayer({
