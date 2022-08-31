@@ -19,4 +19,7 @@ export interface playerInterface {
     number: number;
     points: number;
     image: string;
+    boughtFor: number;
+    marketV: number;
+    averagePoints: number; 
 }

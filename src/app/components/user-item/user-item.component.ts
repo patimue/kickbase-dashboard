@@ -25,7 +25,7 @@ export class UserItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
-    this.isLoadingFinished = true; 
+    this.isLoadingFinished = true;
     this.getUserInfo();
   }
 
@@ -64,12 +64,24 @@ export class UserItemComponent implements OnInit {
             players: this.players
           }
           for (let playerElem of user.pl) {
-            this.players.push({
-              name: playerElem.fn ?? "" + " " + playerElem.n,
-              number: playerElem.nr,
-              points: playerElem.t,
-              image: playerElem.i
+            fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${token}&leagueId=${leagueId}&${playerElem.id}`, {
+              method: "GET",
+              redirect: "follow"
             })
+              .then(async (res) => {
+                let text = await res.text();
+                let json = JSON.parse(text);
+                this.addPlayer({
+                  name: json.firstName ?? "" + " " + json.lastName,
+                  number: json.number,
+                  points: playerElem.t,
+                  image: json.profileUrl,
+                  boughtFor: json.leaguePlayers.buyPrice ?? 0,
+                  marketV: json.marketValue,
+                  averagePoints: json.averagePoints
+                });
+              })
+              .catch(error => console.log(error));
             console.log(this.players);
           }
           this.isLoadingFinished = true;
@@ -80,4 +92,8 @@ export class UserItemComponent implements OnInit {
       })
   }
 
+
+  addPlayer(player: playerInterface) {
+    this.players.push(player);
+  }
 }
