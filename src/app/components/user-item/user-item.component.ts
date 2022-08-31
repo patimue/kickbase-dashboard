@@ -17,16 +17,28 @@ export class UserItemComponent implements OnInit {
 
   isLoadingFinished = false;
 
+  mockPlayer: playerInterface;
+
+
   //PLAYER URL : https://api.kickbase.com/leagues/2644579/players/1685/stats
 
   //USER URL: 
   constructor(private route: ActivatedRoute, private router: Router) {
+    this.mockPlayer = {
+      name: "Janis Blaswich",
+      number: 21,
+      points: 123,
+      image: "https://kickbase.b-cdn.net/pool/playersbig/4.png",
+      boughtFor: 0,
+      marketV: 10000000,
+      averagePoints: 150
+    }
   }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
     this.isLoadingFinished = true;
-    this.getUserInfo();
+    // this.getUserInfo();
   }
 
   getUserInfo() {
@@ -77,8 +89,8 @@ export class UserItemComponent implements OnInit {
                   name: json.firstName ?? "" + " " + json.lastName,
                   number: json.number,
                   points: playerElem.t,
-                  image: json.profileUrl,
-                  boughtFor: json.leaguePlayer.buyPrice ?? 0,
+                  image: json.profileBig,
+                  boughtFor: 0,
                   marketV: json.marketValue,
                   averagePoints: json.averagePoints
                 });

@@ -6,7 +6,7 @@
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
-    padding: 1em 2em;
+    // padding: 1em 2em;
 
     .tile {
         position: relative;
@@ -15,8 +15,8 @@
         width: 100%;
         color: white;
         font-family: Arial, Helvetica, sans-serif;
-        background-color: var(--tile-color);
-        padding: 1em 2em;
+        // background-color: var(--tile-color);
+        padding: 1em 0em;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -31,17 +31,19 @@
         }
 
         .playerListWrap {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             gap: 12px;
 
             .playerTile{
-                background-color: gray;
+                background-color: rgb(69, 69, 69);
                 border-radius: 1em;
                 padding: .5em;
                 box-sizing: border-box;
                 color: white;
-                font-size: .8em;
                 display: flex;
 
                 .left,
@@ -55,6 +57,7 @@
                     text-overflow: ellipsis;
 
 
+
                     .playerInfo {
                         
                         overflow: hidden;
@@ -62,7 +65,15 @@
                         flex-direction: column;
 
                         justify-content: center;
+
+                        strong {
+                            font-size: 1.3em;
+                        }
+
                         label {
+                            font-size: 1.2em;
+                            font-weight: lighter;
+                            opacity: 0.8;
                             white-space: normal;
                             text-overflow: ellipsis;
                         }
