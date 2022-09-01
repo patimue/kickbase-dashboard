@@ -39,7 +39,7 @@
             gap: 12px;
 
             .playerTile{
-                background-color: rgb(69, 69, 69);
+                background-color: var(--tile-color);
                 border-radius: 1em;
                 padding: .5em;
                 box-sizing: border-box;

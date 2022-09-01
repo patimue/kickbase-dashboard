@@ -1,6 +1,32 @@
 <div class="wrapper">
     <header>Matchday Standings</header>
-    <table>
+    <div class="userListWrap">
+        <div class="userRow" *ngFor="let user of players" (click)="openTile(user)">
+            <div class="left">
+                <img src="{{ user.picture }}" alt="" height="64">
+                <div class="infoWrap">
+                    <strong>{{ user.name }}awdawdawdawdawdawdawdawdawdawdawd</strong>
+                    <label>Total Points: {{ user.stats }}</label>
+                </div>
+            </div>
+            <div class="right">
+                <label [ngClass]="{'positive' : user.points > 0,'negative' : user.points < 0, 'neutral' : user.points == 0}" for="">{{user.points}}</label>
+            </div>
+        </div>
+        <!-- <div class="userRow">
+            <div class="left">
+                <img src="{{ mockUser.picture }}" alt="" height="64">
+                <div class="infoWrap">
+                    <strong>{{ mockUser.name }}awdawdawdawdawdawdawdawdawdawdawd</strong>
+                    <label>Total Points: {{ mockUser.stats }}</label>
+                </div>
+            </div>
+            <div class="right">
+                <label [ngClass]="{'positive' : mockUser.points > 0,'negative' : mockUser.points < 0, 'neutral' : mockUser.points == 0}" for="">{{mockUser.points}}</label>
+            </div>
+        </div> -->
+    </div>
+    <!-- <table>
         <tr>
             <th>Player</th>
             <th>Matchday Points</th>
@@ -11,8 +37,13 @@
             <td>{{ user.points }}</td>
             <td>{{ user.stats }}</td>
         </tr>
-        <!-- <tr>
+        <tr  class="userRow">
+            <td>{{ mockUser.name }}</td>
+            <td>{{ mockUser.points }}</td>
+            <td>{{ mockUser.stats }}</td>
+        </tr>
+        <tr>
             <td style="background-color:red;" colspan="4">test</td>
-        </tr> -->
-    </table>
+        </tr>
+    </table> -->
 </div>

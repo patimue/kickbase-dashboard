@@ -13,6 +13,16 @@ export class DashboardComponent implements OnInit {
 
   showTile = false; 
 
+  public mockUser = {
+    id: 123,
+    name: "Paul",
+    positive: 1.0,
+    points: 100,
+    stats: 4000,
+    picture: undefined ?? "https://upload.wikimedia.org/wikipedia/commons/2/2c/Kickbase_Logo.jpg",
+    players: []
+  }
+
   constructor(private router: Router) {
     this.checkStorage();
   }
@@ -43,7 +53,7 @@ export class DashboardComponent implements OnInit {
             positive: user.b,
             points: user.t,
             stats: user.st,
-            picture: user.i,
+            picture: user.i ?? "https://upload.wikimedia.org/wikipedia/commons/2/2c/Kickbase_Logo.jpg",
             players: []
           })
         }
