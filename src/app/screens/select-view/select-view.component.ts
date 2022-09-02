@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-select-view',
@@ -8,11 +9,13 @@ import { Router } from '@angular/router';
 })
 export class SelectViewComponent implements OnInit {
 
-  constructor(private router : Router) { 
+  constructor(private router : Router, private apiService: ApiService) { 
     this.checkStorage();
   }
 
   ngOnInit(): void {
+    this.apiService.getLocal();
+    console.log(this.apiService.getTable());
   }
 
   checkStorage() {

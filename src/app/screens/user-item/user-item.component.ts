@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { playerInterface, userInfo } from 'src/app/models/user.model';
+import { playerInterface, position, userInfo } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-item',
@@ -28,12 +28,15 @@ export class UserItemComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {
     this.mockPlayer = {
       name: "Janis Blaswich",
+      teamId : '15',
       number: 21,
       points: 123,
       image: "https://kickbase.b-cdn.net/pool/playersbig/4.png",
       boughtFor: 0,
       marketV: 10000000,
-      averagePoints: 150
+      id: 1,
+      averagePoints: 150,
+      position: position[1]
     }
   }
 
@@ -89,12 +92,15 @@ export class UserItemComponent implements OnInit {
                 let json = JSON.parse(text);
                 this.totalRosterValue += json.marketValue;
                 this.addPlayer({
-                  name: json.firstName  + " " + json.lastName,
+                  name: json.firstName + " " + json.lastName,
                   number: json.number,
                   points: playerElem.t,
+                  position: this.matchPlayerNumber(json.position),
                   image: json.profileBig,
                   boughtFor: 0,
+                  teamId : json.teamId,
                   marketV: json.marketValue,
+                  id: json.id,
                   averagePoints: json.averagePoints
                 });
               })
@@ -114,7 +120,18 @@ export class UserItemComponent implements OnInit {
     this.players.push(player);
   }
 
-  marketValueString(number : number) : string {
+  marketValueString(number: number): string {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
+  matchPlayerNumber(num: number): string {
+    if (num === 1 || num === 2 || num === 3 || num === 4)
+      return position[num];
+    else 
+      return "Unknown"
+  }
+
+  navigateDetailsPage(id : number) {
+    this.router.navigate([`/player/${id}`])
   }
 }

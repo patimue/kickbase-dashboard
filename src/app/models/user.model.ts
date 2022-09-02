@@ -15,11 +15,22 @@ export interface userInfo {
 
 
 export interface playerInterface {
-    name : string;
+    name: string;
     number: number;
     points: number;
     image: string;
     boughtFor: number;
     marketV: number;
-    averagePoints: number; 
+    averagePoints: number;
+    position: string;
+    id: number;
+    user?: string;
+    teamId: string;
+}
+
+export const position = {
+    1: "TW",
+    2: "ABW",
+    3: "MF",
+    4: "ST"
 }

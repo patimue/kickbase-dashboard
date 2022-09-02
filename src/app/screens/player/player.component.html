@@ -1,0 +1,37 @@
+<div class="wrapper">
+    <div class="nameHeader">
+        <label for="">{{ player?.name }}</label>
+    </div>
+    <div class="imageHeader">
+        <img src="{{this.player?.image}}" alt="">
+    </div>
+    <div class="generalInfo">
+        <div class="infoLine">
+            <label for="">{{ player?.position }}</label>
+            <label for="">{{ team }}</label>
+        </div>
+    </div>
+    <div class="splitter"></div>
+    <div class="infoWrap">
+        <div class="infoLine">
+            <label for="">Owner: </label>
+            <label for="">{{ player?.user }}</label>
+        </div>
+        <div class="infoLine">
+            <label for="">Bought for:</label>
+            <label for="">{{ this.marketValueString(player?.boughtFor!) }}</label>
+        </div>
+        <div class="infoLine">
+            <label for="">Market Value:</label>
+            <label for="">{{ this.marketValueString(player?.marketV!) }}</label>
+        </div>
+        <div class="infoLine">
+            <label for="">Profit/Loss:</label>
+            <label for="" [ngClass]="{
+                'negative' : player?.marketV! - player?.boughtFor! < 0,
+                'positive' : player?.marketV! - player?.boughtFor! > 0
+            }">{{
+                this.marketValueString(player?.marketV! - player?.boughtFor!) }}</label>
+        </div>
+    </div>
+</div>
