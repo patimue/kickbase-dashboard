@@ -78,7 +78,7 @@ export class DashboardComponent implements OnInit {
       let ran = false;
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
-        if (player.stats <= tempPlayers[i].stats) {
+        if (player.points <= tempPlayers[i].points) {
           if(i == tempPlayers.length - 1 ) {
             tempPlayers.push(player);
             break;
@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit {
           console.log(firstHalf);
           if (i === 0) {
             let tempArray = [];
-            if (player.stats > tempPlayers[i].stats) {
+            if (player.points > tempPlayers[i].points) {
               tempArray.push(player);
               tempArray.concat(tempPlayers);
             } else {
