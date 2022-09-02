@@ -110,4 +110,8 @@ export class UserItemComponent implements OnInit {
   addPlayer(player: playerInterface) {
     this.players.push(player);
   }
+
+  marketValueString(number : number) : string {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
 }
