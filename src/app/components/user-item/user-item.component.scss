@@ -30,6 +30,28 @@
             font-size: 2em;
         }
 
+        .rosterInfoWrap {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+
+            .valueLine {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 .5em;
+                box-sizing: border-box;
+                font-size: 1.5em;
+                color: white;
+
+                :last-child {
+                    color: green;
+                }
+            }
+        }
+
         .playerListWrap {
             width: 100%;
             max-width: 800px;

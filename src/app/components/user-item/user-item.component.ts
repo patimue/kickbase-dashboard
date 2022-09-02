@@ -19,6 +19,8 @@ export class UserItemComponent implements OnInit {
 
   mockPlayer: playerInterface;
 
+  totalRosterValue = 0;
+
 
   //PLAYER URL : https://api.kickbase.com/leagues/2644579/players/1685/stats
 
@@ -85,6 +87,7 @@ export class UserItemComponent implements OnInit {
                   return;
                 let text = await res.text();
                 let json = JSON.parse(text);
+                this.totalRosterValue += json.marketValue;
                 this.addPlayer({
                   name: json.firstName  + " " + json.lastName,
                   number: json.number,

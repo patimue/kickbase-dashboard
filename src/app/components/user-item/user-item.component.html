@@ -3,6 +3,12 @@
         <div class="header">
             {{ user.name }}
         </div>
+        <div class="rosterInfoWrap">
+            <div class="valueLine">
+                <label>Total Roster Value:</label>
+                <label>{{ this.marketValueString(totalRosterValue) }}</label>
+            </div>
+        </div>
         <div class="playerListWrap">
             <!-- <div class="playerTile">
                 <div class="left">
