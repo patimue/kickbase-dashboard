@@ -38,7 +38,7 @@ export class UserItemComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
     this.isLoadingFinished = true;
-    this.getUserInfo();
+    // this.getUserInfo();
   }
 
   getUserInfo() {

@@ -13,14 +13,14 @@ export class DashboardComponent implements OnInit {
 
   showTile = false; 
 
-  public mockUser = {
-    id: 123,
+  public mockUser :userInfo = {
     name: "Paul",
     positive: 1.0,
     points: 100,
     stats: 4000,
     picture: undefined ?? "https://upload.wikimedia.org/wikipedia/commons/2/2c/Kickbase_Logo.jpg",
-    players: []
+    players: [],
+    id: '123123'
   }
 
   constructor(private router: Router) {

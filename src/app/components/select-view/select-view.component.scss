@@ -1,0 +1,29 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: start;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vh;
+    text-align: center;
+    padding: 2em 1em 0 1em;
+    box-sizing: border-box;
+    gap: 20px;
+
+    .header {
+        font-size: 2em;
+        font-weight: bold;
+    }
+
+    .tile {
+        background-color: var(--tile-color);
+        padding: 1em 1em;
+        border-radius: .8em;
+        color: white;
+        font-size: 1.1em;
+        font-weight: bold;
+        width: 100%;
+        max-width: 800px;
+    }
+}

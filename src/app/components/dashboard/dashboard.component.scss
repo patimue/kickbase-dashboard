@@ -27,6 +27,7 @@
         gap: 12px;
         
         .userRow {
+            cursor: pointer;
             padding: .5em;
             box-sizing: border-box;
             border-radius: .5em;
@@ -35,10 +36,12 @@
             align-items: space-between;
 
             img {
+                pointer-events: none;
                 border-radius: .3em;
             }
 
             .left {
+                pointer-events: none;
                 gap: 4px;
                 display: flex;
                 align-items: center;
@@ -59,6 +62,7 @@
             }
 
             .right {
+                pointer-events: none;
                 display: flex;
                 align-items: center;
                 justify-content: end;

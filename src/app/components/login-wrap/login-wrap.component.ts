@@ -15,7 +15,7 @@ export class LoginWrapComponent implements OnInit {
 
     const data = localStorage.getItem('ctoken');
     if(data !== undefined) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
