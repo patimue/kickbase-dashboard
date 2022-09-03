@@ -1,0 +1,8 @@
+<div class="outerWrap">
+    <div class="maxIndicator">
+        <label for="">{{ this.marketValueString(maxValue) }}€</label>
+    </div>
+    <div #wrapper class="wrapper" *ngIf="values">
+        <div class="pillar" *ngFor="let value of values; index as i" [ngStyle]="{'height' : (value / maxValue) * 100 + '%', 'background-color' : this.compareForColor(i)}"></div>
+    </div>
+</div>

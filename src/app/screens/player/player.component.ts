@@ -16,6 +16,8 @@ export class PlayerComponent implements OnInit {
 
   playerId: string;
 
+  finishedLoading = false;
+
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {
     this.playerId = this.route.snapshot.paramMap.get('id') ?? "";
@@ -32,6 +34,7 @@ export class PlayerComponent implements OnInit {
     if (this.player?.teamId !== undefined)
       this.team = await this.apiService.getTeamById(this.player?.teamId);
     console.log(this.player);
+    this.finishedLoading = true;
   }
 
   marketValueString(number: number): string {

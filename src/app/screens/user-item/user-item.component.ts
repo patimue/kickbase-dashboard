@@ -113,11 +113,12 @@ export class UserItemComponent implements OnInit {
       .catch((error) => {
         this.router.navigate(['/dashboard']);
       })
-  }
-
-
-  addPlayer(player: playerInterface) {
-    this.players.push(player);
+    }
+    
+    
+    addPlayer(player: playerInterface) {
+      this.players.push(player);
+      this.sortPlayers();
   }
 
   marketValueString(number: number): string {

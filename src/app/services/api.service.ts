@@ -80,18 +80,46 @@ export class ApiService {
 
 
   async getPlayer(id: string): Promise<playerInterface | undefined> {
+    let tempPlayer: playerInterface = {
+      name: '',
+      number: 0,
+      points: 0,
+      image: '',
+      boughtFor: 0,
+      marketV: 0,
+      averagePoints: 0,
+      position: '',
+      id: 0,
+      teamId: ''
+    }
     let response = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getPlayer?token=${this.token}&playerId=${id}&leagueId=${this.leagueId}`, {
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
       }
     })
-      .then(async (response) => {
-        let text = await response.text();
+      .then((response) => {
+        let text = response.text()
+          .then(text => {
+            let json = JSON.parse(text);
+            if (json.marketValues !== undefined) {
+              console.log('Found Market Values')
+              if (json.marketValues.length > 20) {
+                tempPlayer.marketValues = [];
+                console.log('Adding market values')
+                for (let i = json.marketValues.length - 1; i > json.marketValues.length - 20; i--) {
+                  tempPlayer.marketValues?.push(json.marketValues[i]['m'])
+                }
+              }
+            }
+            console.log('Returning Text')
+            return text;
+          })
         return text;
       })
     let json = JSON.parse(response);
-    const tempPlayer: playerInterface = {
+    console.log('Filling player')
+    tempPlayer = {
       name: json.firstName + " " + json.lastName,
       number: json.number,
       points: json.points,
@@ -102,8 +130,10 @@ export class ApiService {
       marketV: json.marketValue,
       averagePoints: json.averagePoints,
       position: this.matchPlayerNumber(json.position),
-      id: json.id
+      id: json.id,
+      marketValues : tempPlayer.marketValues
     };
+    console.log(tempPlayer);
     return tempPlayer;
   }
 
@@ -117,10 +147,10 @@ export class ApiService {
   async getTeamById(id: string): Promise<string> {
     let team = 'Unknown';
     team = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getTeamById?token=${this.token}&teamId=${id}`)
-    .then(async (response) => {
-      let text = await response.text();
-      return text;
-    })
+      .then(async (response) => {
+        let text = await response.text();
+        return text;
+      })
     return team;
   }
 }

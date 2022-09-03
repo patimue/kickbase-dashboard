@@ -9,6 +9,7 @@ import { UserItemComponent } from './screens/user-item/user-item.component';
 import { SelectViewComponent } from './screens/select-view/select-view.component';
 import { HomeComponent } from './screens/home/home.component';
 import { PlayerComponent } from './screens/player/player.component';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PlayerComponent } from './screens/player/player.component';
     UserItemComponent,
     SelectViewComponent,
     HomeComponent,
-    PlayerComponent
+    PlayerComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,9 @@
                 <label>Total Roster Value:</label>
                 <label>{{ this.marketValueString(totalRosterValue) }}</label>
             </div>
+            <div class="goBackLine">
+                <a routerLink="/dashboard">< back</a>
+            </div>            
         </div>
         <div class="playerListWrap">
             <!-- <div class="playerTile">
@@ -48,6 +51,12 @@
                         </label>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="rosterInfoWrap">
+
+            <div class="seeFullTeamLine" *ngIf="false">
+                <button>See whole team</button>
             </div>
         </div>
     </div>

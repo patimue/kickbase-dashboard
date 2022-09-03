@@ -50,6 +50,38 @@
                     color: green;
                 }
             }
+
+            .seeFullTeamLine {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                button {
+                    width: 100%;
+                    background-color: var(--button-color);
+                    border: none;
+                    outline: none;
+                    padding: .6em 0;
+                    border-radius: .7em;
+                    color: white;
+                    font-size: 1.1em;
+                    font-weight: bold;
+                }
+            }
+
+            .goBackLine{
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+
+                a {
+                    text-decoration: none;
+                    color: var(--button-color);
+                    text-decoration: underline;
+                    font-size: 1.1em;
+                }
+            }
         }
 
         .playerListWrap {
