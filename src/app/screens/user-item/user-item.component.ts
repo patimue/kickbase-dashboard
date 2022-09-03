@@ -101,7 +101,8 @@ export class UserItemComponent implements OnInit {
                   teamId : json.teamId,
                   marketV: json.marketValue,
                   id: json.id,
-                  averagePoints: json.averagePoints
+                  averagePoints: json.averagePoints,
+                  status : json.status === 0 ? "Fit" : "Check"
                 });
               })
               .catch(error => console.log(error));

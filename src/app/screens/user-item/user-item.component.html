@@ -39,6 +39,9 @@
                     </div>
                 </div>
                 <div class="bottomInfos">
+                    <div class="status">
+                        <label for="" [ngStyle]="{'color' : player.status === 'Fit' ? 'green' : 'red'}">{{ player.status }}</label>
+                    </div>
                     <div class="position">
                         <label for="">{{ player.position }}</label>
                     </div>
