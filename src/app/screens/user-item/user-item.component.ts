@@ -118,6 +118,7 @@ export class UserItemComponent implements OnInit {
     
     addPlayer(player: playerInterface) {
       this.players.push(player);
+      this.sortPlayersByNumber();
       this.sortPlayers();
   }
 
@@ -155,6 +156,50 @@ export class UserItemComponent implements OnInit {
           if (i === 0) {
             let tempArray = [];
             if (_player.points > tempPlayers[i].points) {
+              tempArray.push(_player);
+              tempArray.concat(tempPlayers);
+            } else {
+              tempPlayers.push(_player);
+            }
+            console.log('Concatting')
+            tempPlayers = tempArray.concat(tempPlayers);
+          } else {
+            let secondHalf = tempPlayers.slice(i, tempPlayers.length);
+            firstHalf.push(_player);
+            tempPlayers = firstHalf.concat(secondHalf);
+          }
+
+        }
+        break;
+      }
+      if (!ran) {
+        tempPlayers.push(_player);
+      }
+
+      console.log(tempPlayers);
+    }
+    this.players = tempPlayers;
+  }
+
+  sortPlayersByNumber() {
+    let tempPlayers: playerInterface[] = [];
+    for (let _player of this.players) {
+      console.log(_player)
+      let ran = false;
+      for (let i = 0; i < tempPlayers.length; i++) {
+        ran = true;
+        if (_player.number <= tempPlayers[i].number) {
+          if(i == tempPlayers.length - 1 ) {
+            tempPlayers.push(_player);
+            break;
+          }
+          continue;
+        } else {
+          let firstHalf = tempPlayers.slice(0, i);
+          console.log(firstHalf);
+          if (i === 0) {
+            let tempArray = [];
+            if (_player.number > tempPlayers[i].number) {
               tempArray.push(_player);
               tempArray.concat(tempPlayers);
             } else {

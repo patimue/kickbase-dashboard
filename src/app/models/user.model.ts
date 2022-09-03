@@ -28,6 +28,7 @@ export interface playerInterface {
     teamId: string;
     marketValues? : number[];
     lastPoints? : number[];
+    status? : string;
 }
 
 export const position = {

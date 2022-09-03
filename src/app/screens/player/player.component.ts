@@ -34,6 +34,11 @@ export class PlayerComponent implements OnInit {
     if (this.player?.teamId !== undefined)
       this.team = await this.apiService.getTeamById(this.player?.teamId);
     console.log(this.player);
+    if (this.player !== undefined) {
+      this.player.status = "";
+      if (this.player?.status !== undefined)
+        this.player.status = await this.apiService.getPlayerStatus(this.player.id.toString());
+    }
     this.finishedLoading = true;
   }
 

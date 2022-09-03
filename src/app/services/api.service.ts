@@ -131,7 +131,7 @@ export class ApiService {
       averagePoints: json.averagePoints,
       position: this.matchPlayerNumber(json.position),
       id: json.id,
-      marketValues : tempPlayer.marketValues
+      marketValues: tempPlayer.marketValues
     };
     console.log(tempPlayer);
     return tempPlayer;
@@ -142,6 +142,16 @@ export class ApiService {
       return position[num];
     else
       return "Unknown"
+  }
+
+  async getPlayerStatus(id: string): Promise<string> {
+    let status = "Unknown";
+    status = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getPlayerStatus?token=${this.token}&leagueId=${this.leagueId}&playerId=${id}`)
+      .then(async (response) => {
+        let text = await response.text();
+        return text;
+      })
+    return status;
   }
 
   async getTeamById(id: string): Promise<string> {
