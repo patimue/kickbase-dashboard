@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './screens/dashboard/dashboard.component';
 import { LoginWrapComponent } from './screens/login-wrap/login-wrap.component';
+import { MarketComponent } from './screens/market/market.component';
 import { PlayerComponent } from './screens/player/player.component';
 import { SelectViewComponent } from './screens/select-view/select-view.component';
 import { UserItemComponent } from './screens/user-item/user-item.component';
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: "dashboard",
     component: DashboardComponent
+  },
+  {
+    path: "market",
+    component: MarketComponent
   },
   {
     path: "user/:id",

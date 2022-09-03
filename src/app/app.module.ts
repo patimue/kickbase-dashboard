@@ -10,6 +10,7 @@ import { SelectViewComponent } from './screens/select-view/select-view.component
 import { HomeComponent } from './screens/home/home.component';
 import { PlayerComponent } from './screens/player/player.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { MarketComponent } from './screens/market/market.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ChartComponent } from './components/chart/chart.component';
     SelectViewComponent,
     HomeComponent,
     PlayerComponent,
-    ChartComponent
+    ChartComponent,
+    MarketComponent
   ],
   imports: [
     BrowserModule,

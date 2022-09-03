@@ -29,6 +29,8 @@ export interface playerInterface {
     marketValues? : number[];
     lastPoints? : number[];
     status? : string;
+    trend? : number;
+    endsIn?: number;
 }
 
 export const position = {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { playerInterface } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
+
 
   player: playerInterface | undefined;
 
@@ -26,6 +27,7 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 
   async setup() {

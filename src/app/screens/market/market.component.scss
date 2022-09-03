@@ -1,0 +1,101 @@
+.wrapper {
+    width: 99%;
+    margin: 0 auto;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 3vh;
+    gap: 20px;
+
+    .header {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .listWrap {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: flex-start;
+        align-items: center;
+
+        .playerTile {
+            background-color: var(--tile-color);
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            border-radius: .5em;
+            align-items: center;
+            padding: .2em .1em;
+            position: relative;
+
+            .left {
+                display: flex;
+                align-items: center;
+                width: fit-content;
+                flex: 1;
+                max-width: 70%;
+
+                .infoWrap {
+                    display: flex;
+                    flex-direction: column;
+
+                    :first-child {
+                        font-weight: bold;
+                    }
+
+                    .mValue {
+                        display: flex;
+                        align-items: center;
+
+                        svg {
+                            height: 1em;
+                        }
+
+                        .downTrend {
+                            transform: scale(-1, 1);
+                        }
+
+                        label {
+                            font-weight: normal;
+                            font-size: .8em;
+                            opacity: .8;
+                        }
+                    }
+                }
+            }
+
+            .bottomInfo {
+                position: absolute;
+                font-size: .7em;
+                opacity: .8;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                justify-content: flex-end;
+                text-align: end;
+                align-items: flex-end;
+                bottom: 0;
+                right: 0;
+                margin-right: .5em;
+                margin-bottom: .3em;
+
+                .line{
+                    display: flex;
+                    gap: 2px;
+                    align-items: center;
+
+                    svg {
+                        height: 1em;
+                    }
+                }
+
+            }
+        }
+    }
+
+}

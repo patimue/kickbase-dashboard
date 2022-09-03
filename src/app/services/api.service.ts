@@ -163,4 +163,36 @@ export class ApiService {
       })
     return team;
   }
+
+  async getMarket(): Promise<playerInterface[]> {
+    console.log('Getting market')
+    let players: playerInterface[] = [];
+    const request = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMarket?token=${this.token}&leagueId=${this.leagueId}`)
+      .then(async (text) => {
+        let rawText = await text.text()
+          .then((res) => {
+            let json = JSON.parse(res);
+            for(let player of json.players) {
+              players.push({
+                name: player.firstName + " " + player.lastName,
+                number: player.number,
+                points: player.totalPoints,
+                image: `https://kickbase.b-cdn.net/pool/playersbig/${player.id}.png`,
+                boughtFor: 0,
+                marketV: player.marketValue,
+                averagePoints: player.averagePoints,
+                position: this.matchPlayerNumber(player.position),
+                id: player.id,
+                teamId: player.teamId,
+                status : player.status === "0" ? "Fit" : "Check",
+                trend : player.marketValueTrend,
+                endsIn : player.expiry
+              })
+            }
+          })
+      });
+      console.log(players);
+
+    return players;
+  }
 }
