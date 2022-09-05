@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { playerInterface, position, userInfo } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './user-item.component.html',
   styleUrls: ['./user-item.component.scss']
 })
-export class UserItemComponent implements OnInit {
+export class UserItemComponent implements OnInit, OnDestroy{
 
   public userId!: string;
 
@@ -29,6 +29,8 @@ export class UserItemComponent implements OnInit {
   mockPlayer: playerInterface;
 
   totalRosterValue = 0;
+
+  isDestroyed = false;
 
 
   //PLAYER URL : https://api.kickbase.com/leagues/2644579/players/1685/stats
@@ -71,7 +73,7 @@ export class UserItemComponent implements OnInit {
   }
 
   async constantCheck() {
-    while (true) {
+    while (!this.isDestroyed) {
       await this.sleep(5000);
       let tempUser = await this.apiService.getUser(this.userId);
       if(tempUser !== undefined) {
@@ -213,5 +215,9 @@ export class UserItemComponent implements OnInit {
       console.log(tempPlayers);
     }
     this.players = tempPlayers;
+  }
+
+  ngOnDestroy(): void {
+    this.isDestroyed = true;   
   }
 }
