@@ -28,7 +28,7 @@ export class UserItemComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {
     this.mockPlayer = {
       name: "Janis Blaswich",
-      teamId : '15',
+      teamId: '15',
       number: 21,
       points: 123,
       image: "https://kickbase.b-cdn.net/pool/playersbig/4.png",
@@ -43,10 +43,23 @@ export class UserItemComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
     this.isLoadingFinished = true;
-    this.getUserInfo();
+    this.constantCheck();
+  }
+
+  async constantCheck() {
+    while (true) {
+      this.getUserInfo();
+      await this.sleep(5000);
+    }
+  }
+
+  sleep(ms : number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getUserInfo() {
+    this.totalRosterValue = 0;
+    this.players = [];
     if (this.userId === "") {
       this.router.navigate(['/dashboard']);
     }
@@ -91,6 +104,7 @@ export class UserItemComponent implements OnInit {
                 let text = await res.text();
                 let json = JSON.parse(text);
                 this.totalRosterValue += json.marketValue;
+                let isLive = await fetch(``)
                 this.addPlayer({
                   name: json.firstName + " " + json.lastName,
                   number: json.number,
@@ -98,11 +112,11 @@ export class UserItemComponent implements OnInit {
                   position: this.matchPlayerNumber(json.position),
                   image: json.profileBig,
                   boughtFor: 0,
-                  teamId : json.teamId,
+                  teamId: json.teamId,
                   marketV: json.marketValue,
                   id: json.id,
                   averagePoints: json.averagePoints,
-                  status : json.status === 0 ? "Fit" : "Check"
+                  status: json.status === 0 ? "Fit" : "Check"
                 });
               })
               .catch(error => console.log(error));
@@ -114,13 +128,13 @@ export class UserItemComponent implements OnInit {
       .catch((error) => {
         this.router.navigate(['/dashboard']);
       })
-    }
-    
-    
-    addPlayer(player: playerInterface) {
-      this.players.push(player);
-      this.sortPlayersByNumber();
-      this.sortPlayers();
+  }
+
+
+  addPlayer(player: playerInterface) {
+    this.players.push(player);
+    this.sortPlayersByNumber();
+    this.sortPlayers();
   }
 
   marketValueString(number: number): string {
@@ -130,11 +144,11 @@ export class UserItemComponent implements OnInit {
   matchPlayerNumber(num: number): string {
     if (num === 1 || num === 2 || num === 3 || num === 4)
       return position[num];
-    else 
+    else
       return "Unknown"
   }
 
-  navigateDetailsPage(id : number) {
+  navigateDetailsPage(id: number) {
     this.router.navigate([`/player/${id}`])
   }
 
@@ -146,7 +160,7 @@ export class UserItemComponent implements OnInit {
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
         if (_player.points <= tempPlayers[i].points) {
-          if(i == tempPlayers.length - 1 ) {
+          if (i == tempPlayers.length - 1) {
             tempPlayers.push(_player);
             break;
           }
@@ -190,7 +204,7 @@ export class UserItemComponent implements OnInit {
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
         if (_player.number <= tempPlayers[i].number) {
-          if(i == tempPlayers.length - 1 ) {
+          if (i == tempPlayers.length - 1) {
             tempPlayers.push(_player);
             break;
           }
