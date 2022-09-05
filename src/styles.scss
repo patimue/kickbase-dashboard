@@ -1,7 +1,12 @@
 :root {
+    width: 100%;
     display: block;
     margin: 0 auto;
     background-color: rgb(32, 32, 32);
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
 
     --tile-color: rgb(69, 69, 69);
     --primary-color: white;

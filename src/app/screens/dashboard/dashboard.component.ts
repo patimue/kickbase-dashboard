@@ -44,7 +44,6 @@ export class DashboardComponent implements OnInit {
       .then(async (res) => {
         if (res.status === 200) {
           let text = await res.text();
-          console.log(text);
           const json = JSON.parse(text);
           for (let user of json.u) {
             this.players.push({
@@ -74,7 +73,6 @@ export class DashboardComponent implements OnInit {
   sortPlayers() {
     let tempPlayers: userInfo[] = [];
     for (let player of this.players) {
-      console.log(player)
       let ran = false;
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
@@ -86,7 +84,6 @@ export class DashboardComponent implements OnInit {
           continue;
         } else {
           let firstHalf = tempPlayers.slice(0, i);
-          console.log(firstHalf);
           if (i === 0) {
             let tempArray = [];
             if (player.points > tempPlayers[i].points) {
@@ -95,7 +92,6 @@ export class DashboardComponent implements OnInit {
             } else {
               tempPlayers.push(player);
             }
-            console.log('Concatting')
             tempPlayers = tempArray.concat(tempPlayers);
           } else {
             let secondHalf = tempPlayers.slice(i, tempPlayers.length);
@@ -110,7 +106,6 @@ export class DashboardComponent implements OnInit {
         tempPlayers.push(player);
       }
 
-      console.log(tempPlayers);
     }
     this.players = tempPlayers;
   }

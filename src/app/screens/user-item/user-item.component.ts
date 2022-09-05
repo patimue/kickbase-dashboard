@@ -60,7 +60,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
 
   async setup() {
     let tempUser = await this.apiService.getUser(this.userId);
-    console.log(tempUser);
     if (tempUser !== undefined) {
       this.user = tempUser;
       this.players = this.user.players;
@@ -132,7 +131,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
   sortPlayers() {
     let tempPlayers: playerInterface[] = [];
     for (let _player of this.players) {
-      console.log(_player)
       let ran = false;
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
@@ -144,7 +142,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
           continue;
         } else {
           let firstHalf = tempPlayers.slice(0, i);
-          console.log(firstHalf);
           if (i === 0) {
             let tempArray = [];
             if (_player.points > tempPlayers[i].points) {
@@ -153,7 +150,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
             } else {
               tempPlayers.push(_player);
             }
-            console.log('Concatting')
             tempPlayers = tempArray.concat(tempPlayers);
           } else {
             let secondHalf = tempPlayers.slice(i, tempPlayers.length);
@@ -168,7 +164,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
         tempPlayers.push(_player);
       }
 
-      console.log(tempPlayers);
     }
     this.players = tempPlayers;
   }
@@ -176,7 +171,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
   sortPlayersByNumber() {
     let tempPlayers: playerInterface[] = [];
     for (let _player of this.players) {
-      console.log(_player)
       let ran = false;
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
@@ -188,7 +182,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
           continue;
         } else {
           let firstHalf = tempPlayers.slice(0, i);
-          console.log(firstHalf);
           if (i === 0) {
             let tempArray = [];
             if (_player.number > tempPlayers[i].number) {
@@ -197,7 +190,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
             } else {
               tempPlayers.push(_player);
             }
-            console.log('Concatting')
             tempPlayers = tempArray.concat(tempPlayers);
           } else {
             let secondHalf = tempPlayers.slice(i, tempPlayers.length);
@@ -212,7 +204,6 @@ export class UserItemComponent implements OnInit, OnDestroy{
         tempPlayers.push(_player);
       }
 
-      console.log(tempPlayers);
     }
     this.players = tempPlayers;
   }

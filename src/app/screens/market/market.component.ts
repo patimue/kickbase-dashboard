@@ -35,7 +35,6 @@ export class MarketComponent implements OnInit {
     let tempPlayers: playerInterface[] = [];
     if (this.players !== undefined)
       for (let _player of this.players) {
-        console.log(_player)
         let ran = false;
         if (_player.endsIn !== undefined)
           for (let i = 0; i < tempPlayers.length; i++) {
@@ -48,7 +47,6 @@ export class MarketComponent implements OnInit {
               continue;
             } else {
               let firstHalf = tempPlayers.slice(0, i);
-              console.log(firstHalf);
               if (i === 0) {
                 let tempArray = [];
                 if (_player.endsIn > tempPlayers[i].endsIn!) {
@@ -57,7 +55,6 @@ export class MarketComponent implements OnInit {
                 } else {
                   tempPlayers.push(_player);
                 }
-                console.log('Concatting')
                 tempPlayers = tempArray.concat(tempPlayers);
               } else {
                 let secondHalf = tempPlayers.slice(i, tempPlayers.length);
@@ -72,7 +69,6 @@ export class MarketComponent implements OnInit {
           tempPlayers.push(_player);
         }
 
-        console.log(tempPlayers);
       }
     this.players = tempPlayers;
   }
