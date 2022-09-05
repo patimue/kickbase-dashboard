@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { playerInterface, position, userInfo } from 'src/app/models/user.model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-user-item',
@@ -11,7 +12,15 @@ export class UserItemComponent implements OnInit {
 
   public userId!: string;
 
-  public user!: userInfo;
+  public user: userInfo = {
+    name: "Loading",
+    id: '',
+    positive: 0,
+    points: 0,
+    stats: 0,
+    picture: undefined,
+    players: []
+  };
 
   players: playerInterface[] = [];
 
@@ -25,7 +34,7 @@ export class UserItemComponent implements OnInit {
   //PLAYER URL : https://api.kickbase.com/leagues/2644579/players/1685/stats
 
   //USER URL: 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
     this.mockPlayer = {
       name: "Janis Blaswich",
       teamId: '15',
@@ -42,19 +51,42 @@ export class UserItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') ?? "";
+    this.apiService.getLocal();
+    this.setup();
     this.isLoadingFinished = true;
-    this.constantCheck();
+  }
+
+  async setup() {
+    let tempUser = await this.apiService.getUser(this.userId);
+    console.log(tempUser);
+    if (tempUser !== undefined) {
+      this.user = tempUser;
+      this.players = this.user.players;
+      for(let player of this.players) {
+        this.totalRosterValue += player.marketV
+      }
+      this.sortPlayers();
+      this.constantCheck();
+    }
   }
 
   async constantCheck() {
     while (true) {
-      this.getUserInfo();
       await this.sleep(5000);
+      let tempUser = await this.apiService.getUser(this.userId);
+      if(tempUser !== undefined) {
+        this.players = this.user.players;
+      }
+      this.sortPlayers();
     }
   }
 
-  sleep(ms : number) {
+  sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  getInitialUserInfo() {
+
   }
 
   getUserInfo() {
@@ -70,64 +102,7 @@ export class UserItemComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueId}`, {
-      method: "GET",
-      redirect: "follow"
-    })
-      .then(async (response) => {
-        if (response.status !== 200) {
-          this.router.navigate(['/dashboard']);
-        }
-        let text = await response.text()
-        const json = JSON.parse(text);
-        for (let user of json.u) {
-          if (user.id !== this.userId) {
-            continue;
-          }
-          this.user = {
-            id: user.n,
-            name: user.n,
-            points: user.t,
-            positive: user.b,
-            stats: user.st,
-            picture: user.i,
-            players: this.players
-          }
-          for (let playerElem of user.pl) {
-            fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${token}&leagueId=${leagueId}&playerId=${playerElem.id}`, {
-              method: "GET",
-              redirect: "follow"
-            })
-              .then(async (res) => {
-                if (res.status !== 200)
-                  return;
-                let text = await res.text();
-                let json = JSON.parse(text);
-                this.totalRosterValue += json.marketValue;
-                let isLive = await fetch(``)
-                this.addPlayer({
-                  name: json.firstName + " " + json.lastName,
-                  number: json.number,
-                  points: playerElem.t,
-                  position: this.matchPlayerNumber(json.position),
-                  image: json.profileBig,
-                  boughtFor: 0,
-                  teamId: json.teamId,
-                  marketV: json.marketValue,
-                  id: json.id,
-                  averagePoints: json.averagePoints,
-                  status: json.status === 0 ? "Fit" : "Check"
-                });
-              })
-              .catch(error => console.log(error));
-            console.log(this.players);
-          }
-          this.isLoadingFinished = true;
-        }
-      })
-      .catch((error) => {
-        this.router.navigate(['/dashboard']);
-      })
+
   }
 
 

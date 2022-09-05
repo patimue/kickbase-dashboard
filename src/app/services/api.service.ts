@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { teamInterface } from '../models/teams.model';
-import { playerInterface, position } from '../models/user.model';
+import { playerInterface, position, userInfo } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +77,110 @@ export class ApiService {
 
     return tempTeams;
   }
+
+  async getUser(userId: string): Promise<userInfo | undefined> {
+    let user: userInfo | undefined;
+    const request = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${this.token}&leagueId=${this.leagueId}`, {
+      method: "GET",
+      redirect: "follow"
+    })
+      .then(async (response) => {
+        return await response.text()
+          .then(async (text): Promise<any> => {
+            const json = JSON.parse(text);
+            for (let user of json.u) {
+              if (user.id !== userId) {
+                continue;
+              }
+              let _user: userInfo = {
+                id: user.n,
+                name: user.n,
+                points: user.t,
+                positive: user.b,
+                stats: user.st,
+                picture: user.i,
+                players: []
+              }
+              for await (const player of user.pl) {
+                let tempPlayer = await this.getPlayerAsync(player.id);
+                if (tempPlayer !== undefined) {
+                  tempPlayer.points = player.t;
+                  _user.players.push(tempPlayer);
+                }
+              }
+              return _user;
+            }
+          })
+      })
+    return request;
+  }
+
+  async getPlayerAsync(playerId: number): Promise<playerInterface | undefined> {
+    return await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${this.token}&leagueId=${this.leagueId}&playerId=${playerId}`)
+      .then(async (response): Promise<playerInterface> => {
+        return await response.text()
+          .then((text): playerInterface => {
+            let json = JSON.parse(text);
+            return {
+              name: json.firstName + " " + json.lastName,
+              number: json.number,
+              points: 0,
+              image: json.profileBig,
+              boughtFor: 0,
+              marketV: json.marketValue,
+              averagePoints: json.averagePoints,
+              position: this.matchPlayerNumber(json.position),
+              id: json.id,
+              teamId: json.teamId
+            }
+          })
+        // let _player: playerInterface = {
+        //   name: "",
+        //   number: 0,
+        //   points: 0,
+        //   image: '',
+        //   boughtFor: 0,
+        //   marketV: 0,
+        //   averagePoints: 0,
+        //   position: '',
+        //   id: 0,
+        //   teamId: ''
+        // };
+        // return _player;
+      })
+  }
+
+  // async getLineUpPoints(userId: string): Promise<playerInterface[]> {
+  //   let players: playerInterface[] = [];
+  //   await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${token}&leagueId=${leagueId}&playerId=${playerElem.id}`, {
+  //     method: "GET",
+  //     redirect: "follow"
+  //   })
+  //     .then(async (res) => {
+  //       if (res.status !== 200)
+  //         return;
+  //       let text = await res.text();
+  //       let json = JSON.parse(text);
+  //       let isLive = await fetch(``)
+  //       this.addPlayer({
+  //         name: json.firstName + " " + json.lastName,
+  //         number: json.number,
+  //         points: playerElem.t,
+  //         position: this.matchPlayerNumber(json.position),
+  //         image: json.profileBig,
+  //         boughtFor: 0,
+  //         teamId: json.teamId,
+  //         marketV: json.marketValue,
+  //         id: json.id,
+  //         averagePoints: json.averagePoints,
+  //         status: json.status === 0 ? "Fit" : "Check"
+  //       });
+  //     })
+  //     .catch(error => console.log(error));
+  //   console.log(players);
+
+  //   return players;
+  // }
 
 
   async getPlayer(id: string): Promise<playerInterface | undefined> {
@@ -172,7 +276,7 @@ export class ApiService {
         let rawText = await text.text()
           .then((res) => {
             let json = JSON.parse(res);
-            for(let player of json.players) {
+            for (let player of json.players) {
               players.push({
                 name: player.firstName + " " + player.lastName,
                 number: player.number,
@@ -184,14 +288,14 @@ export class ApiService {
                 position: this.matchPlayerNumber(player.position),
                 id: player.id,
                 teamId: player.teamId,
-                status : player.status === "0" ? "Fit" : "Check",
-                trend : player.marketValueTrend,
-                endsIn : player.expiry
+                status: player.status === "0" ? "Fit" : "Check",
+                trend: player.marketValueTrend,
+                endsIn: player.expiry
               })
             }
           })
       });
-      console.log(players);
+    console.log(players);
 
     return players;
   }
