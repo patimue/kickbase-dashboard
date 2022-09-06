@@ -4,8 +4,9 @@
     margin: 0 auto;
     background-color: rgb(32, 32, 32);
     background-image: url('https://c4.wallpaperflare.com/wallpaper/882/260/926/deutsches-olympiastadion-berlin-germany-wallpaper-preview.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    // background-repeat: no-repeat;
+    background-position: center;
+    background-size:contain;
 
     ::-webkit-scrollbar {
         display: none;
