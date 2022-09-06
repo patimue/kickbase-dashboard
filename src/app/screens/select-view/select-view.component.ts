@@ -15,7 +15,6 @@ export class SelectViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.apiService.getLocal();
-    console.log(this.apiService.getTable());
   }
 
   checkStorage() {

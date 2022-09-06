@@ -27,37 +27,42 @@ export class ApiService {
       this.leagueId = leagueId;
   }
 
-  getTable(): teamInterface[] {
-    if (this.token !== undefined) {
-      fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getTable?matchDay=${this.currentMatchDay}&token=${this.token}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        }
+  async getTable(matchDay: number): Promise<teamInterface[] | undefined> {
+    const teams = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getTable?matchDay=${matchDay}&token=${this.token}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      }
+    })
+      .then(async (res): Promise<any> => {
+        let teams: teamInterface[] = [];
+        teams = await res.text()
+          .then((text) => {
+            let _teams: teamInterface[] = [];
+            let json = JSON.parse(text);
+            console.log(json);
+            for (let team of json.t) {
+              _teams.push({
+                name: team.tn,
+                standing: team.pl,
+                id: team.tid,
+                cmd: json.cmd
+              })
+            }
+            return _teams;
+          })
+        return teams;
       })
-        .then((res) => {
-          res.json()
-            .then((json) => {
-              for (let team of json.t) {
-                this.teams.push({
-                  name: team.tn,
-                  standing: team.pl,
-                  id: team.tid
-                })
-              }
-              this.teams = this.sortTeams();
-            })
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-    }
-    return this.teams;
+      .catch((error) => {
+        console.log(error);
+      })
+    console.log(teams);
+    return teams;
   }
 
-  sortTeams(): teamInterface[] {
+  sortTeams(teams : teamInterface[]): teamInterface[] {
     let tempTeams: teamInterface[] = [];
-    for (let team of this.teams) {
+    for (let team of teams) {
       let ran = false;
       for (let i = 0; i < tempTeams.length; i++) {
         ran = true;
@@ -149,39 +154,6 @@ export class ApiService {
         // return _player;
       })
   }
-
-  // async getLineUpPoints(userId: string): Promise<playerInterface[]> {
-  //   let players: playerInterface[] = [];
-  //   await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getProfileInfo?token=${token}&leagueId=${leagueId}&playerId=${playerElem.id}`, {
-  //     method: "GET",
-  //     redirect: "follow"
-  //   })
-  //     .then(async (res) => {
-  //       if (res.status !== 200)
-  //         return;
-  //       let text = await res.text();
-  //       let json = JSON.parse(text);
-  //       let isLive = await fetch(``)
-  //       this.addPlayer({
-  //         name: json.firstName + " " + json.lastName,
-  //         number: json.number,
-  //         points: playerElem.t,
-  //         position: this.matchPlayerNumber(json.position),
-  //         image: json.profileBig,
-  //         boughtFor: 0,
-  //         teamId: json.teamId,
-  //         marketV: json.marketValue,
-  //         id: json.id,
-  //         averagePoints: json.averagePoints,
-  //         status: json.status === 0 ? "Fit" : "Check"
-  //       });
-  //     })
-  //     .catch(error => console.log(error));
-  //   console.log(players);
-
-  //   return players;
-  // }
-
 
   async getPlayer(id: string): Promise<playerInterface | undefined> {
     let tempPlayer: playerInterface = {

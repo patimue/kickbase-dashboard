@@ -24,7 +24,11 @@
         font-size: .4em;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
+
+        app-sort-selector {
+            width: 100%;
+        }
         
         .userRow {
             cursor: pointer;
@@ -37,7 +41,7 @@
 
             img {
                 pointer-events: none;
-                border-radius: .3em;
+                border-radius: 10em;
             }
 
             .left {

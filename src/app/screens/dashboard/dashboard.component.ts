@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { SortSelectorComponent } from 'src/app/components/sort-selector/sort-selector.component';
 import { userInfo, playerInterface } from 'src/app/models/user.model';
 
 @Component({
@@ -12,6 +13,10 @@ export class DashboardComponent implements OnInit {
   players: userInfo[] = [];
 
   showTile = false;
+
+  finishedLoading = false;
+
+  @ViewChild('selector') selector : SortSelectorComponent | undefined;
 
   public mockUser: userInfo = {
     name: "Paul",
@@ -43,20 +48,27 @@ export class DashboardComponent implements OnInit {
     })
       .then(async (res) => {
         if (res.status === 200) {
-          let text = await res.text();
-          const json = JSON.parse(text);
-          for (let user of json.u) {
-            this.players.push({
-              id: user.id,
-              name: user.n,
-              positive: user.b,
-              points: user.t,
-              stats: user.st,
-              picture: user.i ?? "https://upload.wikimedia.org/wikipedia/commons/2/2c/Kickbase_Logo.jpg",
-              players: []
+          this.players = await res.text()
+            .then(async (text): Promise<userInfo[]> => {
+              const json = JSON.parse(text);
+              const players: userInfo[] = [];
+              for await (let user of json.u) {
+                players.push({
+                  id: user.id,
+                  name: user.n,
+                  positive: user.b,
+                  points: user.t,
+                  stats: user.st,
+                  picture: user.i ?? "https://upload.wikimedia.org/wikipedia/commons/2/2c/Kickbase_Logo.jpg",
+                  players: []
+                })
+              }
+              console.log('Returning');
+              return players;
             })
-          }
-          this.sortPlayers();
+            if(this.selector !== undefined) {
+              this.sortPlayers(this.selector.choice ?? "Overall");
+            }
         } else {
           console.log('error');
         }
@@ -70,14 +82,16 @@ export class DashboardComponent implements OnInit {
     this.router.navigate([`/user/${user.id}`])
   }
 
-  sortPlayers() {
+  sortPlayers(type: string) {
+    console.log('Sorting players');
+    console.log(type);
     let tempPlayers: userInfo[] = [];
     for (let player of this.players) {
       let ran = false;
       for (let i = 0; i < tempPlayers.length; i++) {
         ran = true;
-        if (player.points <= tempPlayers[i].points) {
-          if(i == tempPlayers.length - 1 ) {
+        if (type === "Overall" ? player.stats <= tempPlayers[i].stats : player.points <= tempPlayers[i].points) {
+          if (i == tempPlayers.length - 1) {
             tempPlayers.push(player);
             break;
           }
@@ -86,7 +100,7 @@ export class DashboardComponent implements OnInit {
           let firstHalf = tempPlayers.slice(0, i);
           if (i === 0) {
             let tempArray = [];
-            if (player.points > tempPlayers[i].points) {
+            if (type === "Overall" ? player.stats > tempPlayers[i].stats : player.points > tempPlayers[i].points) {
               tempArray.push(player);
               tempArray.concat(tempPlayers);
             } else {

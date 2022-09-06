@@ -13,6 +13,8 @@ import { ChartComponent } from './components/chart/chart.component';
 import { MarketComponent } from './screens/market/market.component';
 import { LiveMatchComponent } from './screens/live-match/live-match.component';
 import { NavigatorComponent } from './components/navigator/navigator.component';
+import { MatchdayComponent } from './screens/matchday/matchday.component';
+import { SortSelectorComponent } from './components/sort-selector/sort-selector.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NavigatorComponent } from './components/navigator/navigator.component';
     ChartComponent,
     MarketComponent,
     LiveMatchComponent,
-    NavigatorComponent
+    NavigatorComponent,
+    MatchdayComponent,
+    SortSelectorComponent
   ],
   imports: [
     BrowserModule,

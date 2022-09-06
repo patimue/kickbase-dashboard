@@ -1,12 +1,14 @@
 <div class="wrapper">
     <header>Matchday Standings</header>
     <div class="userListWrap">
-        <div class="userRow" *ngFor="let user of players" (click)="openTile(user)">
+        <app-sort-selector [options]="['Overall', 'Matchday']" (selection)="sortPlayers($event)"  #selector></app-sort-selector>
+        <div class="userRow" *ngFor="let user of players; index as i" (click)="openTile(user)">
             <div class="left">
-                <img src="{{ user.picture }}" alt="" height="64">
+                <label for="">{{i+1}}. </label>
+                <img src="{{ user.picture }}" alt="" height="48">
                 <div class="infoWrap">
                     <strong>{{ user.name }}</strong>
-                    <label>Total Points: {{ user.stats }}</label>
+                    <label>Points: {{ user.stats }}</label>
                 </div>
             </div>
             <div class="right">

@@ -1,0 +1,8 @@
+<div class="wrapper">
+    <div class="selection-row">
+        <div *ngFor="let option of options" class="option" id="{{ option }}" (click)="this.onClick(option)">
+            {{ option }}
+        </div>
+        <div class="indicator" #indicator></div>
+    </div>
+</div>
