@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <header>Matchday Standings</header>
+    <header>Standings</header>
     <div class="userListWrap">
         <app-sort-selector [options]="['Overall', 'Matchday']" (selection)="sortPlayers($event)"  #selector></app-sort-selector>
         <div class="userRow" *ngFor="let user of players; index as i" (click)="openTile(user)">
