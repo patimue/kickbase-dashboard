@@ -2,7 +2,7 @@
     position: relative;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2vh;
-    color: white;
+    color: black;
     width: 100%;
     margin: 0 auto 2vh auto;
     display: flex;
@@ -47,7 +47,7 @@
             z-index: -1;
             position: absolute;
             box-sizing: border-box;
-            background-color: white;
+            background-color: var(--button-color);
             opacity: .7;
             border-radius: 10em;
             left: .2em;
