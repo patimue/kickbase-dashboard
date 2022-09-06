@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     height: auto;
+    pointer-events: none;
 
     &.hidden {
         height: 0;
@@ -28,6 +29,7 @@
         align-items: center;
         position: relative;
         isolation: isolate;
+        pointer-events: all;
 
         .selector {
             display: flex;

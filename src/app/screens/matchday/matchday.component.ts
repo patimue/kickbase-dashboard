@@ -13,6 +13,8 @@ export class MatchdayComponent implements OnInit {
 
   selectedMatchDay = 1;
 
+  expandTable = false;
+
   constructor(private apiService: ApiService) {
     this.setup();
   }
@@ -29,7 +31,7 @@ export class MatchdayComponent implements OnInit {
       }
       this.teams = tempTable;
     }
-    console.log(this.teams)
+    this.sortTeams();
   }
 
   async pullSpecificMatchDay(): Promise<teamInterface[] | undefined> {
@@ -41,9 +43,46 @@ export class MatchdayComponent implements OnInit {
   }
 
   sortTeams() {
-    console.log(this.teams)
-    this.teams = this.apiService.sortTeams(this.teams);
+    let tempTeams: teamInterface[] = [];
+    for (let _player of this.teams) {
+      let ran = false;
+      for (let i = 0; i < tempTeams.length; i++) {
+        ran = true;
+        if (_player.standing <= tempTeams[i].standing) {
+          if (i == tempTeams.length - 1) {
+            tempTeams.push(_player);
+            break;
+          }
+          continue;
+        } else {
+          let firstHalf = tempTeams.slice(0, i);
+          if (i === 0) {
+            let tempArray = [];
+            if (_player.standing > tempTeams[i].standing) {
+              tempArray.push(_player);
+              tempArray.concat(tempTeams);
+            } else {
+              tempTeams.push(_player);
+            }
+            tempTeams = tempArray.concat(tempTeams);
+          } else {
+            let secondHalf = tempTeams.slice(i, tempTeams.length);
+            firstHalf.push(_player);
+            tempTeams = firstHalf.concat(secondHalf);
+          }
+
+        }
+        break;
+      }
+      if (!ran) {
+        tempTeams.push(_player);
+      }
+
+    }
+    this.teams = tempTeams.reverse();
+
   }
+
 
   ngOnInit(): void {
   }

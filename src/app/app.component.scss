@@ -10,6 +10,7 @@ div {
 .navigator-wrap {
     position: fixed;
     width: 100%;
+    pointer-events: none;
     margin: 0 auto;
     left: 0;
     right: 0;
