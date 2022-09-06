@@ -9,7 +9,7 @@
     margin-bottom: 10em;
 
     .header {
-        color: white;
+        color: var(--primary-color);
         font-size: 2em;
         font-weight: bold;
         width: 100%;
@@ -42,7 +42,7 @@
             padding: .5em 1em;
             box-sizing: border-box;
             background-color: var(--tile-color);
-            color: white;
+            color: var(--primary-color);
             font-size: 1.3em;
             border-radius: .5em;
         }

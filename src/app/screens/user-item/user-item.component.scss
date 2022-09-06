@@ -64,7 +64,7 @@
                     outline: none;
                     padding: .6em 0;
                     border-radius: .7em;
-                    color: white;
+                    color: var(--primary-color);
                     font-size: 1.1em;
                     font-weight: bold;
                 }
@@ -98,7 +98,7 @@
                 border-radius: 1em;
                 padding: .5em;
                 box-sizing: border-box;
-                color: white;
+                color: var(--primary-color);
                 display: flex;
                 align-items: center;
                 position: relative;
