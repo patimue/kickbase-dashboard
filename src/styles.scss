@@ -2,14 +2,19 @@
     width: 100%;
     display: block;
     margin: 0 auto;
-    background-color: rgb(32, 32, 32);
+    background-color: #08a404;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/45/Football_field.svg');
+    // background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
 
     ::-webkit-scrollbar {
         display: none;
     }
 
-    --tile-color: rgb(69, 69, 69);
-    --primary-color: white;
+    --tile-color: white;
+    --primary-color: black;
+    --secondary-color: white;
     --button-color: #035fff;
     
 }

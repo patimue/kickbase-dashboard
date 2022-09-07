@@ -19,7 +19,7 @@
     .userListWrap {
         width: 100%;
         max-width: 800px;
-        color: white;
+        color: black;
         font-family: Arial, Helvetica, sans-serif;
         font-size: .4em;
         display: flex;
@@ -81,7 +81,7 @@
                         color: red;
                     }
                     &.neutral {
-                        color: white;
+                        color: black;
                     }
                 }
             }
@@ -90,7 +90,7 @@
 
     table {
         text-align: start;
-        color: white;
+        color: var(--primary-color);
         font-family: Arial, Helvetica, sans-serif;
         font-weight: normal;
         border-spacing: 3em;

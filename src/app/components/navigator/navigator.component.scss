@@ -2,7 +2,7 @@
     position: relative;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2vh;
-    color: white;
+    color: black;
     width: 100%;
     margin: 0 auto 2vh auto;
     display: flex;
@@ -22,7 +22,7 @@
         padding: .2em;
         box-sizing: border-box;
         border-radius: 2em;
-        box-shadow: 0 0 5px 5px rgba(215, 215, 215, 0.25);
+        box-shadow: 0 0 10px 8px rgba(58, 58, 58, 0.25);
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -47,7 +47,7 @@
             z-index: -1;
             position: absolute;
             box-sizing: border-box;
-            background-color: white;
+            background-color: var(--button-color);
             opacity: .7;
             border-radius: 10em;
             left: .2em;

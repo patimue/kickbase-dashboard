@@ -1,7 +1,7 @@
 .wrapper {
     width: 99%;
     margin: 0 auto;
-    color: white;
+    color: var(--primary-color);
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
@@ -12,6 +12,7 @@
     .header {
         font-size: 1.5em;
         font-weight: bold;
+        color: white;
     }
 
     .listWrap {
