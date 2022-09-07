@@ -1,6 +1,11 @@
 <div class="wrapper">
     <div class="header">
         <label for="">Table</label>
+        <div class="matchDaySelect">
+            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay - 1)">{{ selectedMatchDay - 1 }}.</label>
+            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay)">{{ selectedMatchDay }}.</label>
+            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay + 1)">{{ selectedMatchDay + 1 }}.</label>
+        </div>
     </div>
     <div class="table" [ngClass]="{'inactive' : !expandTable, 'active' : expandTable}">
         <div *ngFor="let team of teams; index as i" class="teamRow">{{ i + 1 }}. {{ team.name }}</div>

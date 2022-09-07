@@ -42,6 +42,15 @@ export class MatchdayComponent implements OnInit {
       return undefined;
   }
 
+  async selectDifferentMatchDay(smd : number) {
+    const _team = await this.apiService.getTable(smd);
+    if(_team != undefined) {
+      this.teams = _team;
+      this.sortTeams();
+      this.selectedMatchDay = smd;
+    }
+  }
+
   sortTeams() {
     let tempTeams: teamInterface[] = [];
     for (let _player of this.teams) {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { teamInterface } from '../models/teams.model';
 import { playerInterface, position, userInfo } from '../models/user.model';
 
@@ -13,7 +14,7 @@ export class ApiService {
   private token: string | undefined;
   private leagueId: string | undefined;
 
-  constructor() {
+  constructor(private router : Router) {
     this.teams = [];
   }
 
@@ -25,6 +26,11 @@ export class ApiService {
       this.token = token;
     if (leagueId !== null)
       this.leagueId = leagueId;
+  }
+
+  reset() {
+    localStorage.clear();
+    this.router.navigate(['/login'])
   }
 
   async getTable(matchDay: number): Promise<teamInterface[] | undefined> {
@@ -54,7 +60,7 @@ export class ApiService {
         return teams;
       })
       .catch((error) => {
-        console.log(error);
+        this.reset();
       })
     console.log(teams);
     return teams;
@@ -116,6 +122,9 @@ export class ApiService {
               return _user;
             }
           })
+      })
+      .catch((error) => {
+        return undefined;
       })
     return request;
   }

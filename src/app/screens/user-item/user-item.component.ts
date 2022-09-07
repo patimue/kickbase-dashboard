@@ -68,6 +68,8 @@ export class UserItemComponent implements OnInit, OnDestroy{
       }
       this.sortPlayers();
       this.constantCheck();
+    } else {
+      this.apiService.reset();
     }
   }
 
