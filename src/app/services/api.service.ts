@@ -57,7 +57,8 @@ export class ApiService {
                 name: team.tn,
                 standing: team.pl,
                 id: team.tid,
-                cmd: json.cmd
+                cmd: json.cmd,
+                points: team.p
               })
             }
             return _teams;
@@ -87,6 +88,22 @@ export class ApiService {
         this.reset();
       })
     return response;
+  }
+
+  async getMatchesDetailed(): Promise<teamInterface[]> {
+    const request = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${this.token}&leagueId=${this.leagueId}`, {
+      method: "GET",
+      redirect: "follow"
+    })
+      .then(async (res) => {
+        let json = await res.json();
+        return json;
+      })
+      .catch((error) => {
+        this.reset();
+      })
+    return request;
+
   }
 
   sortTeams(teams: teamInterface[]): teamInterface[] {

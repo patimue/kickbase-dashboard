@@ -12,4 +12,5 @@ export interface Match {
     teamOnePoints: number;
     teamTwoPoints: number;
     status: number | undefined;
+    minutes : number | undefined;
 }

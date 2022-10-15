@@ -11,7 +11,7 @@ export class MatchdayComponent implements OnInit {
 
   teams: teamInterface[] = [];
 
-  matches : Match[] = [];
+  matches: Match[] = [];
 
   loading = false;
 
@@ -55,25 +55,29 @@ export class MatchdayComponent implements OnInit {
 
   async getMatches() {
     const matches = await this.apiService.getMatches(this.selectedMatchDay);
+    const matches2 = await this.apiService.getMatchesDetailed();
+    console.log('Detailed Matches: ')
+    console.log(matches2);
     this.matches = [];
-    for await(const matchUp of matches.m) {
+    for await (const matchUp of matches.m) {
       this.matches.push({
         teamOne: matchUp['t1n'],
         teamTwo: matchUp['t2n'],
         teamOnePoints: matchUp['t1s'],
         teamTwoPoints: matchUp['t2s'],
-        status: matchUp['s']
+        status: matchUp['s'],
+        minutes: 0
       })
     }
     console.log(matches);
     console.log(this.matches);
   }
 
-  async selectDifferentMatchDay(smd : number) {
+  async selectDifferentMatchDay(smd: number) {
     this.loading = true;
     const _team = await this.apiService.getTable(smd);
     console.log('Selected different matchday');
-    if(_team != undefined) {
+    if (_team != undefined) {
       this.teams = _team;
       this.sortTeams();
       this.selectedMatchDay = smd;

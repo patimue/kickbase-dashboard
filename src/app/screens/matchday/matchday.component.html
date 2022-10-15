@@ -10,6 +10,7 @@
     <div class="table" [ngClass]="{'inactive' : !expandTable, 'active' : expandTable}">
         <div *ngFor="let team of teams; index as i" class="teamRow">
             <label for="">{{ i + 1 }}. {{ team.name }}</label>
+            <label for="">{{team.points}}</label>
         </div>
     </div>
     <div class="toggle" (click)="this.expandTable = !this.expandTable">Show full table</div>

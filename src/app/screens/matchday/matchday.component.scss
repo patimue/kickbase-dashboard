@@ -60,6 +60,7 @@
         .teamRow {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             width: 100%;
             padding: .5em 1em;
             box-sizing: border-box;
@@ -81,6 +82,11 @@
 
             &:nth-child(5) {
                 color: orange;
+            }
+
+            &:nth-child(17),
+            &:nth-child(18) {
+                color: red;
             }
         }
 
