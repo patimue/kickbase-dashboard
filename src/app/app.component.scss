@@ -18,6 +18,7 @@ div {
     display: flex;
     align-items: center;
     box-sizing: border-box;
+    z-index: 10;
 
     app-navigator {
         width: 100%;

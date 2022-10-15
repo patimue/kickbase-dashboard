@@ -15,6 +15,7 @@ import { LiveMatchComponent } from './screens/live-match/live-match.component';
 import { NavigatorComponent } from './components/navigator/navigator.component';
 import { MatchdayComponent } from './screens/matchday/matchday.component';
 import { SortSelectorComponent } from './components/sort-selector/sort-selector.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SortSelectorComponent } from './components/sort-selector/sort-selector.
     LiveMatchComponent,
     NavigatorComponent,
     MatchdayComponent,
-    SortSelectorComponent
+    SortSelectorComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

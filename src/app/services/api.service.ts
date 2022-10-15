@@ -65,10 +65,28 @@ export class ApiService {
         return teams;
       })
       .catch((error) => {
+        console.log(error);
         this.reset();
       })
     console.log(teams);
     return teams;
+  }
+
+  async getMatches(matchDay: number): Promise<any> {
+    const response = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatches?matchDay=${matchDay}&token=${this.token}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      }
+    })
+      .then(async (res): Promise<any> => {
+        const response = await res.text();
+        return JSON.parse(response);
+      })
+      .catch((error) => {
+        this.reset();
+      })
+    return response;
   }
 
   sortTeams(teams: teamInterface[]): teamInterface[] {
@@ -129,6 +147,7 @@ export class ApiService {
           })
       })
       .catch((error) => {
+        this.reset();
         return undefined;
       })
     return request;
@@ -166,6 +185,10 @@ export class ApiService {
         //   teamId: ''
         // };
         // return _player;
+      })
+      .catch((error) => {
+        this.reset();
+        return undefined;
       })
   }
 
@@ -207,6 +230,10 @@ export class ApiService {
           })
         return text;
       })
+      .catch((error) => {
+        this.reset();
+        return "undefined";
+      })
     let json = JSON.parse(response);
     console.log('Filling player')
     tempPlayer = {
@@ -240,6 +267,10 @@ export class ApiService {
       .then(async (response) => {
         let text = await response.text();
         return text;
+      })
+      .catch((error) => {
+        this.reset();
+        return "";
       })
     return status;
   }
@@ -280,7 +311,11 @@ export class ApiService {
               })
             }
           })
-      });
+      })
+      .catch((error) => {
+        this.reset();
+        return undefined;
+      })
     console.log(players);
 
     return players;

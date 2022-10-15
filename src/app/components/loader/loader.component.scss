@@ -1,0 +1,33 @@
+
+
+.wrap {
+    position: fixed;
+    pointer-events: none;
+    inset: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--app-grey-300);
+    opacity: .5;
+    color: var(--secondary-color);
+    z-index: 2;
+
+    svg {
+        height: 4em;
+        width: 4em;
+        animation: spinning linear infinite .75s;
+    }
+}
+
+@keyframes spinning {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

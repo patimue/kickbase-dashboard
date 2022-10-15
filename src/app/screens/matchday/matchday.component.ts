@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { teamInterface } from 'src/app/models/teams.model';
+import { Match, teamInterface } from 'src/app/models/teams.model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -11,6 +11,12 @@ export class MatchdayComponent implements OnInit {
 
   teams: teamInterface[] = [];
 
+  matches : Match[] = [];
+
+  loading = false;
+
+
+
   selectedMatchDay = 1;
 
   expandTable = false;
@@ -20,35 +26,60 @@ export class MatchdayComponent implements OnInit {
   }
 
   async setup() {
+    this.loading = true;
     await this.apiService.getLocal();
     let tempTable = await this.apiService.getTable(this.selectedMatchDay);
     if (tempTable !== undefined) {
       if (this.selectedMatchDay !== tempTable[0].cmd) {
         this.selectedMatchDay = tempTable[0].cmd!;
         const _team = await this.pullSpecificMatchDay();
+        console.log('Had to choose different matchday')
+        console.log(_team)
         if (_team !== undefined)
           tempTable = _team;
       }
       this.teams = tempTable;
     }
     this.sortTeams();
+    this.loading = false;
   }
 
   async pullSpecificMatchDay(): Promise<teamInterface[] | undefined> {
     const _team = await this.apiService.getTable(this.selectedMatchDay);
+    await this.getMatches();
     if (_team !== undefined)
       return _team
     else
       return undefined;
   }
 
+  async getMatches() {
+    const matches = await this.apiService.getMatches(this.selectedMatchDay);
+    this.matches = [];
+    for await(const matchUp of matches.m) {
+      this.matches.push({
+        teamOne: matchUp['t1n'],
+        teamTwo: matchUp['t2n'],
+        teamOnePoints: matchUp['t1s'],
+        teamTwoPoints: matchUp['t2s'],
+        status: matchUp['s']
+      })
+    }
+    console.log(matches);
+    console.log(this.matches);
+  }
+
   async selectDifferentMatchDay(smd : number) {
+    this.loading = true;
     const _team = await this.apiService.getTable(smd);
+    console.log('Selected different matchday');
     if(_team != undefined) {
       this.teams = _team;
       this.sortTeams();
       this.selectedMatchDay = smd;
+      await this.getMatches();
     }
+    this.loading = false;
   }
 
   sortTeams() {

@@ -8,7 +8,27 @@
         </div>
     </div>
     <div class="table" [ngClass]="{'inactive' : !expandTable, 'active' : expandTable}">
-        <div *ngFor="let team of teams; index as i" class="teamRow">{{ i + 1 }}. {{ team.name }}</div>
+        <div *ngFor="let team of teams; index as i" class="teamRow">
+            <label for="">{{ i + 1 }}. {{ team.name }}</label>
+        </div>
     </div>
     <div class="toggle" (click)="this.expandTable = !this.expandTable">Show full table</div>
+    <div class="spacer"></div>
+    <label for="" class="matchesHeader">Matchups</label>
+    <div class="matchWrap">
+        <div class="matchUp" *ngFor="let match of this.matches">
+            <label for="" [ngClass]="{'losing' : match.teamOnePoints < match.teamTwoPoints}">{{match.teamOne}}</label>
+            <div class="pointsWrap">
+                <label for="">{{match.teamOnePoints}}</label>
+                <label for="">:</label>
+                <label for="">{{match.teamTwoPoints}}</label>
+                <label for="" class="live" *ngIf="match.status === 1 || match.status === 8">Live</label>
+                <label for="" class="ended" *ngIf="match.status === 2">Final</label>
+                <label for="" class="ended halftime" *ngIf="match.status === 4">HT</label>
+                <label for="" class="notStarted" *ngIf="match.status === undefined"></label>
+            </div>
+            <label for="" [ngClass]="{'losing' : match.teamOnePoints > match.teamTwoPoints}">{{match.teamTwo}}</label>
+        </div>
+    </div>
+    <app-loader *ngIf="loading"></app-loader>
 </div>

@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
     const token = localStorage.getItem('ctoken');
     const leagueid = localStorage.getItem('leagueid');
 
-    if (token === undefined || leagueid === undefined) {
+    if (token === null || leagueid === null) {
       this.router.navigate(['/login']);
     }
     fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${token}&leagueId=${leagueid}`, {

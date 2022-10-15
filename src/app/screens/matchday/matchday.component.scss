@@ -9,7 +9,7 @@
     margin-bottom: 10em;
 
     .header {
-        color: var(--primary-color);
+        color: var(--secondary-color);
         font-size: 2em;
         font-weight: bold;
         width: 100%;
@@ -19,10 +19,17 @@
         flex-direction: column;
 
         .matchDaySelect {
+            background-color: var(--app-grey-300);
+            width: fit-content;
+            margin: auto;
+            padding: .3em;
+            box-sizing: border-box;
+            border-radius: .5em;
             display: flex;
             gap: 6px;
             justify-content: center;
             align-items: flex-end;
+
             :first-child,
             :last-child {
                 font-weight: normal;
@@ -39,7 +46,7 @@
         position: relative;
         transition: all 300ms;
         border-radius: .5em;
-        
+
         &.inactive {
             overflow-x: hidden;
             height: 19.7em;
@@ -57,10 +64,27 @@
             padding: .5em 1em;
             box-sizing: border-box;
             background-color: var(--tile-color);
-            color: var(--primary-color);
+            color: var(--secondary-color);
             font-size: 1.3em;
             border-radius: .5em;
+
+            label {
+                opacity: .75;
+            }
+
+            &:nth-child(1),
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(4) {
+                color: var(--button-color);
+            }
+
+            &:nth-child(5) {
+                color: orange;
+            }
         }
+
+
     }
 
     .toggle {
@@ -80,5 +104,79 @@
         box-sizing: border-box;
         border-radius: .5em;
         cursor: pointer;
+    }
+
+    .spacer {
+        width: 100%;
+        height: .25em;
+        background-color: var(--app-grey-300);
+        border-radius: 3em;
+    }
+
+    .matchesHeader {
+        color: var(--secondary-color);
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+
+    .matchWrap {
+        display: flex;
+        flex-direction: column;
+        gap: .5em;
+
+        .matchUp {
+            background-color: var(--app-grey-300);
+            color: var(--secondary-color);
+            font-size: 1.3em;
+            padding: .75em 1em;
+            border-radius: .5em;
+
+            display: flex;
+            justify-content: space-between;
+
+            .losing {
+                opacity: .5;
+            }
+
+            .pointsWrap {
+                isolation: isolate;
+                position: relative;
+                flex: unset;
+
+                .live,
+                .ended,
+                .notStarted {
+                    z-index: -1;
+                    inset: 0;
+                    position: absolute;
+                    transform: translate(-30%, 60%);
+                    text-align: start;
+                }
+
+                .live {
+                    transform: translate(-15%, 60%);
+                    color: red;
+                }
+                .halftime {
+                    transform: translate(0, 60%);
+                }
+                .ended {
+                    opacity: .5;
+                }
+            }
+
+
+
+            label {
+                flex: 1;
+                opacity: .75;
+            }
+
+            >:last-child {
+                text-align: end;
+            }
+        }
     }
 }
