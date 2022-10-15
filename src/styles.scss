@@ -2,7 +2,7 @@
     width: 100%;
     display: block;
     margin: 0 auto;
-    background-color: rgb(226, 226, 226);
+    background-color: var(--primary-color);
     // background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/45/Football_field.svg');
     // background-repeat: no-repeat;
     background-position: center;
@@ -12,9 +12,17 @@
         display: none;
     }
 
-    --tile-color: white;
-    --primary-color: black;
+    --tile-color: var(--app-grey-600);
+    --primary-color: var(--app-black);
     --secondary-color: white;
     --button-color: #035fff;
+
+
+    --app-black: black;
+    --app-grey-300: #333;
+    --app-grey-600: rgb(36, 36, 36);
+    --app-grey-900: rgb(24, 24, 24);
+
+
     
 }

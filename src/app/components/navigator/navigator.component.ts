@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router, Event, RouterEvent, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-navigator',
@@ -15,7 +16,7 @@ export class NavigatorComponent implements AfterViewInit {
 
   hidden = false;
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private apiService : ApiService) {
 
   }
 

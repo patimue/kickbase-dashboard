@@ -14,7 +14,7 @@ export class ApiService {
   private token: string | undefined;
   private leagueId: string | undefined;
 
-  constructor(private router : Router) {
+  constructor(private router: Router) {
     this.teams = [];
   }
 
@@ -24,13 +24,18 @@ export class ApiService {
 
     if (token !== null)
       this.token = token;
+    else
+      this.reset();
     if (leagueId !== null)
       this.leagueId = leagueId;
+    else
+      this.reset();
   }
 
   reset() {
     localStorage.clear();
-    this.router.navigate(['/login'])
+    if (!window.location.href.includes('login'))
+      this.router.navigate(['/login'])
   }
 
   async getTable(matchDay: number): Promise<teamInterface[] | undefined> {
@@ -66,7 +71,7 @@ export class ApiService {
     return teams;
   }
 
-  sortTeams(teams : teamInterface[]): teamInterface[] {
+  sortTeams(teams: teamInterface[]): teamInterface[] {
     let tempTeams: teamInterface[] = [];
     for (let team of teams) {
       let ran = false;
