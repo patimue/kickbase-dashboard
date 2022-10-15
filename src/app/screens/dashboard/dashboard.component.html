@@ -15,17 +15,6 @@
                 <label [ngClass]="{'positive' : user.points > 0,'negative' : user.points < 0, 'neutral' : user.points == 0}" for="">{{user.points}}</label>
             </div>
         </div>
-        <!-- <div class="userRow" (click)="openTile(mockUser)">
-            <div class="left">
-                <img src="{{ mockUser.picture }}" alt="" height="64">
-                <div class="infoWrap">
-                    <strong>{{ mockUser.name }}awdawdawdawdawdawdawdawdawdawdawd</strong>
-                    <label>Total Points: {{ mockUser.stats }}</label>
-                </div>
-            </div>
-            <div class="right">
-                <label [ngClass]="{'positive' : mockUser.points > 0,'negative' : mockUser.points < 0, 'neutral' : mockUser.points == 0}" for="">{{mockUser.points}}</label>
-            </div>
-        </div> -->
     </div>
+    <app-loader *ngIf="loading"></app-loader>
 </div>

@@ -10,6 +10,8 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class MarketComponent implements OnInit {
 
+  loading = false;
+
   @Input() players?: playerInterface[];
 
   constructor(private apiService: ApiService, private router: Router) {
@@ -18,10 +20,12 @@ export class MarketComponent implements OnInit {
 
 
   async setup() {
+    this.loading = true;
     this.apiService.getLocal();
     this.players = await this.apiService.getMarket();
     this.sortOffers();
     this.players.reverse();
+    this.loading = false;
   }
 
   navigatePlayer(id: number) {
@@ -80,8 +84,8 @@ export class MarketComponent implements OnInit {
   calcEndTime(seconds: number): string {
     if (Math.floor(seconds / 60) > 60)
       return "" + Math.floor(seconds / 60 / 60) + "h" +
-      Math.floor((seconds - 60 * 60 * Math.floor(seconds / 60 / 60) ) / 60) + "min" + 
-      seconds % 60 + "s";
+        Math.floor((seconds - 60 * 60 * Math.floor(seconds / 60 / 60)) / 60) + "min" +
+        seconds % 60 + "s";
     else
       return "" + Math.floor(seconds / 60) + "min" + seconds % 60 + "s";
   }

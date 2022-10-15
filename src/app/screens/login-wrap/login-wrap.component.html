@@ -1,7 +1,7 @@
 <div class="wrapper">
     <form action="">
-        <input id="username" required>
-        <input id="password" required>
+        <input id="username" required placeholder="Email" autocomplete="email">
+        <input id="password" required placeholder="Password" autocomplete="current-password">
         <button type="submit" (submit)="login($event)" (click)="login($event)">Login</button>
     </form>
 </div>

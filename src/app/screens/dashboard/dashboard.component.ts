@@ -10,13 +10,15 @@ import { userInfo, playerInterface } from 'src/app/models/user.model';
 })
 export class DashboardComponent implements OnInit {
 
+  loading = true;
+
   players: userInfo[] = [];
 
   showTile = false;
 
   finishedLoading = false;
 
-  @ViewChild('selector') selector : SortSelectorComponent | undefined;
+  @ViewChild('selector') selector: SortSelectorComponent | undefined;
 
   public mockUser: userInfo = {
     name: "Paul",
@@ -36,6 +38,7 @@ export class DashboardComponent implements OnInit {
   }
 
   checkStorage() {
+    this.loading = true;
     const token = localStorage.getItem('ctoken');
     const leagueid = localStorage.getItem('leagueid');
 
@@ -64,11 +67,12 @@ export class DashboardComponent implements OnInit {
                 })
               }
               console.log('Returning');
+              this.loading = false;
               return players;
             })
-            if(this.selector !== undefined) {
-              this.sortPlayers(this.selector.choice ?? "Overall");
-            }
+          if (this.selector !== undefined) {
+            this.sortPlayers(this.selector.choice ?? "Overall");
+          }
         } else {
           console.log('error');
         }

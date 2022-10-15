@@ -275,6 +275,18 @@ export class ApiService {
     return status;
   }
 
+  async getTeamNameById(id: string): Promise<string> {
+    const team = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getTeamById?token=${this.token}&teamId=${id}`)
+      .then(async (response) => {
+        let text = await response.json();
+        return text;
+      })
+    if (team.tn !== undefined)
+      return team.tn;
+    else
+      return "Unknown"
+  }
+
   async getTeamById(id: string): Promise<string> {
     let team = 'Unknown';
     team = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getTeamById?token=${this.token}&teamId=${id}`)
