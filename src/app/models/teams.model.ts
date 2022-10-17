@@ -13,4 +13,11 @@ export interface Match {
     teamTwoPoints: number;
     status: number | undefined;
     minutes : number | undefined;
+    id? : string;
+    startTime?: Date;
+    odds? : {
+        teamOne : number;
+        tie : number;
+        teamTwo: number;
+    }
 }

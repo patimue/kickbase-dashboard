@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Match, teamInterface } from 'src/app/models/teams.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -21,7 +22,7 @@ export class MatchdayComponent implements OnInit {
 
   expandTable = false;
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private router: Router) {
     this.setup();
   }
 
@@ -33,8 +34,6 @@ export class MatchdayComponent implements OnInit {
       if (this.selectedMatchDay !== tempTable[0].cmd) {
         this.selectedMatchDay = tempTable[0].cmd!;
         const _team = await this.pullSpecificMatchDay();
-        console.log('Had to choose different matchday')
-        console.log(_team)
         if (_team !== undefined)
           tempTable = _team;
       }
@@ -56,8 +55,6 @@ export class MatchdayComponent implements OnInit {
   async getMatches() {
     const matches = await this.apiService.getMatches(this.selectedMatchDay);
     const matches2 = await this.apiService.getMatchesDetailed();
-    console.log('Detailed Matches: ')
-    console.log(matches2);
     this.matches = [];
     for await (const matchUp of matches.m) {
       this.matches.push({
@@ -69,14 +66,14 @@ export class MatchdayComponent implements OnInit {
         minutes: 0
       })
     }
-    console.log(matches);
-    console.log(this.matches);
+    if (this.selectedMatchDay === matches.cmd) {
+      this.matches = matches2;
+    }
   }
 
   async selectDifferentMatchDay(smd: number) {
     this.loading = true;
     const _team = await this.apiService.getTable(smd);
-    console.log('Selected different matchday');
     if (_team != undefined) {
       this.teams = _team;
       this.sortTeams();
@@ -129,6 +126,12 @@ export class MatchdayComponent implements OnInit {
 
 
   ngOnInit(): void {
+  }
+
+
+  openMatch(id: string | undefined) {
+    if (id !== undefined)
+      this.router.navigate([`/match/${id}`])
   }
 
 }

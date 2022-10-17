@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './screens/dashboard/dashboard.component';
+import { LiveMatchComponent } from './screens/live-match/live-match.component';
 import { LoginWrapComponent } from './screens/login-wrap/login-wrap.component';
 import { MarketComponent } from './screens/market/market.component';
 import { MatchdayComponent } from './screens/matchday/matchday.component';
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: "player/:id",
     component: UserItemComponent
+  },
+  {
+    path: "match/:id",
+    component: LiveMatchComponent
   },
   {
     path: "**",

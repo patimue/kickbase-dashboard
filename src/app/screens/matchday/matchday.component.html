@@ -2,13 +2,15 @@
     <div class="header">
         <label for="">Table</label>
         <div class="matchDaySelect">
-            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay - 1)">{{ selectedMatchDay - 1 }}.</label>
+            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay - 1)">{{ selectedMatchDay - 1
+                }}.</label>
             <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay)">{{ selectedMatchDay }}.</label>
-            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay + 1)">{{ selectedMatchDay + 1 }}.</label>
+            <label for="" (click)="this.selectDifferentMatchDay(selectedMatchDay + 1)">{{ selectedMatchDay + 1
+                }}.</label>
         </div>
     </div>
     <div class="table" [ngClass]="{'inactive' : !expandTable, 'active' : expandTable}">
-        <div *ngFor="let team of teams; index as i" class="teamRow">
+        <div *ngFor="let team of teams; index as i" class="teamRow" id="{{team.id}}">
             <label for="">{{ i + 1 }}. {{ team.name }}</label>
             <label for="">{{team.points}}</label>
         </div>
@@ -17,7 +19,7 @@
     <div class="spacer"></div>
     <label for="" class="matchesHeader">Matchups</label>
     <div class="matchWrap">
-        <div class="matchUp" *ngFor="let match of this.matches">
+        <div class="matchUp" *ngFor="let match of this.matches" id="{{match.id}}" (click)="this.openMatch(match.id)">
             <label for="" [ngClass]="{'losing' : match.teamOnePoints < match.teamTwoPoints}">{{match.teamOne}}</label>
             <div class="pointsWrap">
                 <label for="">{{match.teamOnePoints}}</label>

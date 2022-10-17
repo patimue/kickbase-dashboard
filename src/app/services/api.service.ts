@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { teamInterface } from '../models/teams.model';
+import { Match, teamInterface } from '../models/teams.model';
 import { playerInterface, position, userInfo } from '../models/user.model';
 
 @Injectable({
@@ -90,17 +90,40 @@ export class ApiService {
     return response;
   }
 
-  async getMatchesDetailed(): Promise<teamInterface[]> {
+  async getMatchesDetailed(): Promise<Match[]> {
     const request = await fetch(`https://europe-west1-kickbase-dashboard.cloudfunctions.net/getMatchDay?token=${this.token}&leagueId=${this.leagueId}`, {
       method: "GET",
       redirect: "follow"
     })
-      .then(async (res) => {
+      .then(async (res): Promise<Match[]> => {
         let json = await res.json();
-        return json;
+        console.log(json);
+        const returnArray: Match[] = [];
+        for await (let day of json.md) {
+          for await (let match of day.m) {
+            returnArray.push({
+              teamOne: match.t1n,
+              teamTwo: match.t2n,
+              teamOnePoints: match.t1s,
+              teamTwoPoints: match.t2s,
+              status: match.s,
+              minutes: match.ts,
+              id: match.id,
+              startTime: new Date(day.d),
+              odds: {
+                teamOne: match.odds.o1,
+                teamTwo: match.odds.o2,
+                tie: match.odds.oX
+              }
+            })
+          }
+        }
+        console.log('matches: ', returnArray)
+        return returnArray;
       })
-      .catch((error) => {
+      .catch((error): Match[] => {
         this.reset();
+        return []
       })
     return request;
 
